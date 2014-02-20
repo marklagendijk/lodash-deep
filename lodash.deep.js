@@ -111,13 +111,11 @@
          * @returns {Array}
          */
         deepPluck: function(collection, propertyPath){
-            var result = [];
-            _.forEach(collection, function(item){
+            return _.map(collection, function(item){
                 if(_.deepIn(item, propertyPath)){
-                    result.push(_.deepGetValue(item, propertyPath));
+                    return _.deepGetValue(item, propertyPath);
                 }
             });
-            return result;
         }
     });
 })();
