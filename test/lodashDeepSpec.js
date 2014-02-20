@@ -141,9 +141,9 @@ describe('lodash.deep mixins', function(){
 
     describe('deepPluck(collection, propertyPath)', function(){
         it('should do a deep pluck', function(){
-            expect(_.deepPluck(array, 'level1.value')).toEqual(['value 1_1', 'value 1_2', 'value 1_3']);
-            expect(_.deepPluck(array, 'level1.level2.value')).toEqual(['value 2_1', 'value 2_2', 'value 2_3']);
-            expect(_.deepPluck(array, 'level1.level2.level3.value')).toEqual(['value 3_1', 'value 3_2', 'value 3_3']);
+            expect(_.deepPluck(array, 'level1.value')).toEqual(['value 1_1', 'value 1_2', 'value 1_3', undefined, undefined]);
+            expect(_.deepPluck(array, 'level1.level2.value')).toEqual(['value 2_1', 'value 2_2', 'value 2_3', undefined, undefined]);
+            expect(_.deepPluck(array, 'level1.level2.level3.value')).toEqual(['value 3_1', 'value 3_2', 'value 3_3', undefined, undefined]);
         });
     });
 });
