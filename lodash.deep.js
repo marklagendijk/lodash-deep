@@ -108,7 +108,7 @@
          * Executes a deep pluck on an collection of object trees.
          * @param {Object|Array} collection - The collection of object trees.
          * @param {string} propertyPath - The dot separated propertyPath.
-         * @returns {Object|Array}
+         * @returns {Array}
          */
         deepPluck: function(collection, propertyPath){
             return _.map(collection, function(item){
