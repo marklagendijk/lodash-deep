@@ -9,8 +9,8 @@
     _.mixin({
         /**
          * Executes a deep check for the existence of a property in an object tree.
-         * @param object - The root object of the object tree.
-         * @param propertyPath - The dot separated propertyPath.
+         * @param {Object} object - The root object of the object tree.
+         * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {boolean}
          */
         deepIn: function(object, propertyPath){
@@ -29,8 +29,8 @@
         },
         /**
          * Executes a deep check for the existence of a own property in an object tree.
-         * @param object - The root object of the object tree.
-         * @param propertyPath - The dot separated propertyPath.
+         * @param {Object} object - The root object of the object tree.
+         * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {boolean}
          */
         deepHas: function(object, propertyPath){
@@ -49,8 +49,8 @@
         },
         /**
          * Retreives the value of a property in an object tree.
-         * @param object - The root object of the object tree.
-         * @param propertyPath - The dot separated propertyPath.
+         * @param {Object} object - The root object of the object tree.
+         * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {*} - The value, or undefined if it doesn't exists.
          */
         deepGetValue: function(object, propertyPath){
@@ -65,8 +65,8 @@
         },
         /**
          * Retreives the own value of a property in an object tree.
-         * @param object - The root object of the object tree.
-         * @param propertyPath - The dot separated propertyPath.
+         * @param {Object} object - The root object of the object tree.
+         * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {*} - The value, or undefined if it doesn't exists.
          */
         deepGetOwnValue: function(object, propertyPath){
@@ -81,10 +81,10 @@
         },
         /**
          * Sets a value of a property in an object tree. Any missing objects will be created.
-         * @param object - The root object of the object tree.
-         * @param propertyPath - The dot separated propertyPath.
-         * @param value - The value to set.
-         * @returns {*}
+         * @param {Object} object - The root object of the object tree.
+         * @param {string} propertyPath - The dot separated propertyPath.
+         * @param {*} value - The value to set.
+         * @returns {Object} The object.
          */
         deepSetValue: function(object, propertyPath, value){
             var properties, property, currentObject;
@@ -106,9 +106,9 @@
         },
         /**
          * Executes a deep pluck on an collection of object trees.
-         * @param collection - The collection of object trees.
-         * @param propertyPath - The dot separated propertyPath.
-         * @returns {Array}
+         * @param {Object|Array} collection - The collection of object trees.
+         * @param {string} propertyPath - The dot separated propertyPath.
+         * @returns {Object|Array}
          */
         deepPluck: function(collection, propertyPath){
             return _.map(collection, function(item){
