@@ -161,7 +161,7 @@ _.deepGetOwnValue(object, 'foo.bar.baz');
 ```
 
 ### _.deepSetValue(object, propertyPath, value)
-Executes a deep check for the existence of a own property in an object tree.
+Sets a value of a property in an object tree. Any missing objects will be created.
 
 #### object
 Type: `Object`
