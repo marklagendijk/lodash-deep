@@ -6,6 +6,13 @@ Lodash mixins for (deep) object accessing / manipulation.
 2. Reference `lodash.deep.min.js` after `lodash.min.js`
 
 ## Docs
+The following mixins are included in `lodash.deep`:
+- _.deepIn(object, propertyPath)
+- _.deepHas(object, propertyPath)
+- _.deepGetValue(object, propertyPath)
+- _.deepGetOwnValue(object, propertyPath)
+- _.deepSetValue(object, propertyPath, value)
+- _.deepPluck(collection, propertyPath)
 
 ### _.deepIn(object, propertyPath)
 Executes a deep check for the existence of a property in an object tree.
