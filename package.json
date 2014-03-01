@@ -1,6 +1,13 @@
 {
+  "name": "lodash.deep",
+  "version": "1.0.1",
+  "description": "Lodash mixins for (deep) object accessing / manipulation.",
+  "main": "lodash.deep.js",
+  "directories": {
+    "test": "test"
+  },
   "dependencies": {
-	  "lodash": ">=2.4.1"
+    "lodash": ">=2.4.1"
   },
   "devDependencies": {
     "karma": "~0.11.9",
@@ -10,5 +17,26 @@
     "gulp-uglify": "~0.1.0",
     "gulp-karma": "0.0.1",
     "gulp-rename": "~0.2.1"
-  }
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/marklagendijk/lodash.deep.git"
+  },
+  "keywords": [
+    "lodash",
+    "mixin",
+    "mixins",
+    "deep",
+    "object",
+    "walking"
+  ],
+  "author": "Mark Lagendijk <mark@lagendijk.info>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marklagendijk/lodash.deep/issues"
+  },
+  "homepage": "https://github.com/marklagendijk/lodash.deep"
 }
