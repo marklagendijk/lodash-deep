@@ -2,8 +2,20 @@
 Lodash mixins for (deep) object accessing / manipulation.
 
 ## Installation
+### Bower
 1. `bower install lodash.deep`
 2. Reference `lodash.deep.min.js` after `lodash.min.js`
+
+### Node.js
+1. `npm install lodash`
+2. `npm install lodash.deep`
+3. 
+    ``` javascript
+
+    var _ = require("lodash");
+    _.mixin(require("lodash.deep"));
+    ```
+
 
 ## Docs
 The following mixins are included in `lodash.deep`:
