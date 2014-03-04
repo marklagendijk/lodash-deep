@@ -1,5 +1,5 @@
 /* globals: beforeEach, describe, it, module, inject, expect */
-describe('lodash.deep mixins', function(){
+describe('lodash-deep mixins', function(){
     'use strict';
     var object, array;
     beforeEach(function(){

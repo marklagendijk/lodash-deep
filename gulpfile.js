@@ -14,8 +14,8 @@ gulp.task("test", ["minify"], function(){
 });
 
 gulp.task("minify", function(){
-    gulp.src("lodash.deep.js")
+    gulp.src("lodash-deep.js")
         .pipe(uglify())
-        .pipe(rename("lodash.deep.min.js"))
+        .pipe(rename("lodash-deep.min.js"))
         .pipe(gulp.dest("./"));
 });
