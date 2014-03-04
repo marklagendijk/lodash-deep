@@ -9,7 +9,7 @@ Lodash mixins for (deep) object accessing / manipulation.
 ### Node.js
 1. `npm install lodash`
 2. `npm install lodash-deep`
-3.
+3. 
     ``` javascript
 
     var _ = require("lodash");
