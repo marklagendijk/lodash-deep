@@ -127,6 +127,15 @@
 		}
 	});
 	
+	// simpler syntax
+	mixins.deep = function(object, propertyPath, value) {
+		if (arguments.length === 3) {
+			return mixins.deepSet(object, propertyPath, value);
+		} else {
+			return mixins.deepget(object, propertyPath);
+		}
+	};
+	
 	// support pre 1.2.0 function names
 	mixins.deepGetValue = mixins.deepGet;
 	mixins.deepGetOwnValue = mixins.deepGetOwn;
