@@ -97,7 +97,7 @@ _.deepHas(object, 'level1.level2.level3.value');
 // -> false
 ```
 
-### _.deepGetValue(object, propertyPath)
+### _.deepGet(object, propertyPath)
 Retreives the value of a property in an object tree.
 
 #### object
