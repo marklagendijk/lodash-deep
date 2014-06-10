@@ -92,49 +92,49 @@ describe('lodash-deep mixins', function(){
         });
     });
 
-    describe('deepGetValue(object, propertyPath)', function(){
+    describe('deepGet(object, propertyPath)', function(){
         it('should retrieve the value in an object tree, using the specified property path', function(){
-            expect(_.isObject(_.deepGetValue(object, 'level1'))).toBe(true);
-            expect(_.deepGetValue(object, 'level1.value')).toBe('value 1');
-            expect(_.isObject(_.deepGetValue(object, 'level1.level2'))).toBe(true);
-            expect(_.deepGetValue(object, 'level1.level2.value')).toBe('value 2');
-            expect(_.isObject(_.deepGetValue(object, 'level1.level2.level3'))).toBe(true);
-            expect(_.deepGetValue(object, 'level1.level2.level3.value')).toBe('value 3');
+            expect(_.isObject(_.deepGet(object, 'level1'))).toBe(true);
+            expect(_.deepGet(object, 'level1.value')).toBe('value 1');
+            expect(_.isObject(_.deepGet(object, 'level1.level2'))).toBe(true);
+            expect(_.deepGet(object, 'level1.level2.value')).toBe('value 2');
+            expect(_.isObject(_.deepGet(object, 'level1.level2.level3'))).toBe(true);
+            expect(_.deepGet(object, 'level1.level2.level3.value')).toBe('value 3');
 
-            expect(_.deepGetValue(object, 'blah')).toBeUndefined();
-            expect(_.deepGetValue(object, 'level1.blah')).toBeUndefined();
-            expect(_.deepGetValue(object, 'level1.level2.level3.blah')).toBeUndefined();
+            expect(_.deepGet(object, 'blah')).toBeUndefined();
+            expect(_.deepGet(object, 'level1.blah')).toBeUndefined();
+            expect(_.deepGet(object, 'level1.level2.level3.blah')).toBeUndefined();
         });
     });
 
     describe('deepGetOwnValue(object, propertyPath)', function(){
         it('should retrieve the own value in an object tree, using the specified property path', function(){
-            expect(_.isObject(_.deepGetOwnValue(object, 'level1'))).toBe(true);
-            expect(_.deepGetOwnValue(object, 'level1.value')).toBe('value 1');
-            expect(_.isObject(_.deepGetOwnValue(object, 'level1.level2'))).toBe(true);
-            expect(_.deepGetOwnValue(object, 'level1.level2.value')).toBe('value 2');
+            expect(_.isObject(_.deepOwn(object, 'level1'))).toBe(true);
+            expect(_.deepOwn(object, 'level1.value')).toBe('value 1');
+            expect(_.isObject(_.deepOwn(object, 'level1.level2'))).toBe(true);
+            expect(_.deepOwn(object, 'level1.level2.value')).toBe('value 2');
 
-            expect(_.deepGetOwnValue(object, 'level1.level2.level3')).toBeUndefined();
-            expect(_.deepGetOwnValue(object, 'level1.level2.level3.value')).toBeUndefined();
+            expect(_.deepOwn(object, 'level1.level2.level3')).toBeUndefined();
+            expect(_.deepOwn(object, 'level1.level2.level3.value')).toBeUndefined();
 
-            expect(_.deepGetOwnValue(object, 'blah')).toBeUndefined();
-            expect(_.deepGetOwnValue(object, 'level1.blah')).toBeUndefined();
-            expect(_.deepGetOwnValue(object, 'level1.level2.level3.blah')).toBeUndefined();
+            expect(_.deepOwn(object, 'blah')).toBeUndefined();
+            expect(_.deepOwn(object, 'level1.blah')).toBeUndefined();
+            expect(_.deepOwn(object, 'level1.level2.level3.blah')).toBeUndefined();
         });
     });
 
-    describe('deepSetValue(object, propertyPath, value)', function(){
+    describe('deepSet(object, propertyPath, value)', function(){
         it('should set the value in the object tree, using the specified property path', function(){
-            _.deepSetValue(object, 'level1.foo', 'bar');
+            _.deepSet(object, 'level1.foo', 'bar');
             expect(object.level1.foo).toBe('bar');
-            _.deepSetValue(object, 'level1.level2.foo', 'bar');
+            _.deepSet(object, 'level1.level2.foo', 'bar');
             expect(object.level1.level2.foo).toBe('bar');
-            _.deepSetValue(object, 'level1.level2.level3.foo', 'bar');
+            _.deepSet(object, 'level1.level2.level3.foo', 'bar');
             expect(object.level1.level2.level3.foo).toBe('bar');
         });
 
         it('should create any missing objects', function(){
-            _.deepSetValue(object, 'level1.level2.level3.level4.level5.level6.foo', 'bar');
+            _.deepSet(object, 'level1.level2.level3.level4.level5.level6.foo', 'bar');
             expect(object.level1.level2.level3.level4.level5.level6.foo).toBe('bar');
         });
     });
