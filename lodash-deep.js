@@ -126,5 +126,11 @@
 			});
 		}
 	});
+	
+	// support pre 1.2.0 function names
+	mixins.deepGetValue = mixins.deepGet;
+	mixins.deepGetOwnValue = mixins.deepGetOwn;
+	mixins.deepSetValue = mixins.deepSet;
+	
 	_.mixin(mixins);
 })();
