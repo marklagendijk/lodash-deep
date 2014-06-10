@@ -20,9 +20,9 @@ Lodash mixins for (deep) object accessing / manipulation.
 The following mixins are included in `lodash-deep`:
 - [_.deepIn](#_deepinobject-propertypath)
 - [_.deepHas](#_deephasobject-propertypath)
-- [_.deepGetValue](#_deepgetvalueobject-propertypath)
-- [_.deepGetOwnValue](#_deepgetownvalueobject-propertypath)
-- [_.deepSetValue](#_deepsetvalueobject-propertypath-value)
+- [_.deepGet](#_deepgetobject-propertypath)
+- [_.deepGetOwn](#_deepgetownobject-propertypath)
+- [_.deepSet](#_deepsetobject-propertypath-value)
 - [_.deepPluck](#_deeppluckcollection-propertypath)
 
 ### _.deepIn(object, propertyPath)
@@ -126,15 +126,15 @@ var object = {
 		})
 	}
 };
-_.deepGetValue(object, 'level1.value');
+_.deepGet(object, 'level1.value');
 // -> 'value 1'
-_.deepGetValue(object, 'level1.level2.level3.value');
+_.deepGet(object, 'level1.level2.level3.value');
 // -> 'value 3'
-_.deepGetValue(object, 'foo.bar.baz');
+_.deepGet(object, 'foo.bar.baz');
 // -> undefined
 ```
 
-### _.deepGetOwnValue(object, propertyPath)
+### _.deepGetOwn(object, propertyPath)
 Retreives the value of a *own* property in an object tree.
 
 #### object
@@ -163,15 +163,15 @@ var object = {
 		})
 	}
 };
-_.deepGetOwnValue(object, 'level1.value');
+_.deepGetOwn(object, 'level1.value');
 // -> 'value 1'
-_.deepGetOwnValue(object, 'level1.level2.level3.value');
+_.deepGetOwn(object, 'level1.level2.level3.value');
 // -> undefined
-_.deepGetOwnValue(object, 'foo.bar.baz');
+_.deepGetOwn(object, 'foo.bar.baz');
 // -> undefined
 ```
 
-### _.deepSetValue(object, propertyPath, value)
+### _.deepSet(object, propertyPath, value)
 Sets a value of a property in an object tree. Any missing objects will be created.
 
 #### object
@@ -194,9 +194,9 @@ Type: `Object`
 
 ``` javascript
 var object = {};
-_.deepSetValue(object, 'level1.level2.level3.value', 'value 3');
+_.deepSet(object, 'level1.level2.level3.value', 'value 3');
 // -> { level1: { level2: { level3: { value: 'value 3' }}}}
-_.deepSetValue(object, 'level1.level2.level3.value', 'foo');
+_.deepSet(object, 'level1.level2.level3.value', 'foo');
 // -> { level1: { level2: { level3: { value: 'foo' }}}}
 ```
 
