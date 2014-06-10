@@ -230,4 +230,4 @@ _.deepPluck(collection, 'level1.level2.level3.value');
 ```
 
 ### Function name change
-from version 1.1.0 to 1.2.0 the function names setValue, getValue, and getOwnValue were simplified to omit the "Value" suffix. Backward compatibility with the old names remains in place so as not to break existing code.
+From version 1.1.0 to 1.2.0 the function names setValue, getValue, and getOwnValue were simplified to omit the "Value" suffix. Backward compatibility with the old names remains in place so as not to break existing code.
