@@ -63,7 +63,7 @@
 		 * @param {string} propertyPath - The dot separated propertyPath.
 		 * @returns {*} - The value, or undefined if it doesn't exists.
 		 */
-		deepGetValue: function(object, propertyPath){
+		deepGet: function(object, propertyPath){
 			if(_.deepIn(object, propertyPath)){
 				return _.reduce(propertyPath.split('.'), function(object, property){
 					return object[property];
@@ -74,12 +74,12 @@
 			}
 		},
 		/**
-		 * Retreives the own value of a property in an object tree.
+		 * Retrieves the own value of a property in an object tree.
 		 * @param {Object} object - The root object of the object tree.
 		 * @param {string} propertyPath - The dot separated propertyPath.
 		 * @returns {*} - The value, or undefined if it doesn't exists.
 		 */
-		deepGetOwnValue: function(object, propertyPath){
+		deepOwn: function(object, propertyPath){
 			if(_.deepHas(object, propertyPath)){
 				return _.reduce(propertyPath.split('.'), function(object, property){
 					return object[property];
@@ -96,7 +96,7 @@
 		 * @param {*} value - The value to set.
 		 * @returns {Object} The object.
 		 */
-		deepSetValue: function(object, propertyPath, value){
+		deepSet: function(object, propertyPath, value){
 			var properties, property, currentObject;
 
 			properties = propertyPath.split('.');
@@ -126,5 +126,11 @@
 			});
 		}
 	});
+
+	// support pre 1.2.0 function names
+	mixins.deepSetValue = mixins.deepSet;
+	mixins.deepGetValue = mixins.deepGet;
+	mixins.deepGetOwnValue = mixins.deepOwn;
+
 	_.mixin(mixins);
 })();
