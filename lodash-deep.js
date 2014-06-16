@@ -9,10 +9,11 @@
 	// Node.js support
 	var _;
 	var mixins = {};
-	if(typeof require === 'function'){
+	if (typeof module !== 'undefined' && module.exports){
 		_ = require('lodash');
 		module.exports = mixins;
-	} else{
+	} 
+	else{
 		_ = window._;
 	}
 
@@ -58,7 +59,7 @@
 			return true;
 		},
 		/**
-		 * Retreives the value of a property in an object tree.
+		 * Retrieves the value of a property in an object tree.
 		 * @param {Object} object - The root object of the object tree.
 		 * @param {string} propertyPath - The dot separated propertyPath.
 		 * @returns {*} - The value, or undefined if it doesn't exists.
