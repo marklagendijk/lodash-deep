@@ -24,8 +24,6 @@
         for (var i=0, l=rawProps.length; i<l; i++) {
             var prop = rawProps[i];
 
-            console.log(prop);
-
             // check certain properties
             if (prop.match(/('|")(.*)('|")/)) {
                 // ["foo"] or [\'foo\'], also matches quoted numbers ["0"] or [\'0\'] or ["foo"]
@@ -39,7 +37,6 @@
             }
         }
 
-        console.log(finalProps);
         return finalProps;
     };
 
