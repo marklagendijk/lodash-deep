@@ -51,7 +51,7 @@
             var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if(_.isObject(object) && property in object){
+                if((_.isObject(object) && property in object || _.isArray(object) && object.indexOf(property) !== -1)){
                     object = object[property];
                 }
                 else{
@@ -71,7 +71,7 @@
             var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if(_.isObject(object) && object.hasOwnProperty(property)){
+                if((_.isObject(object) && object.hasOwnProperty(property) || _.isArray(object) && object.indexOf(property) !== -1)){
                     object = object[property];
                 }
                 else{

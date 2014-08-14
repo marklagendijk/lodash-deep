@@ -1,7 +1,7 @@
 /* globals: beforeEach, describe, it, module, inject, expect */
 describe('lodash-deep mixins', function(){
     'use strict';
-    var object, array;
+    var object, array, objectWithArray;
     beforeEach(function(){
         object = {
             level1: {
@@ -14,6 +14,14 @@ describe('lodash-deep mixins', function(){
             }
         };
         object.level1.level2.value = 'value 2';
+
+        objectWithArray = {
+            level1: [
+                {
+                    level2: 'value 1'
+                }
+            ]
+        };
 
         array = [
             {
@@ -62,22 +70,24 @@ describe('lodash-deep mixins', function(){
 
 
     describe('deepIn(object, propertyPath)', function(){
-        it('should return whether a value exist in an object tree, for the specified property path', function(){
+        it('should return whether a value exists in an object tree, for the specified property path', function(){
             expect(_.deepIn(object, 'level1')).toBe(true);
             expect(_.deepIn(object, 'level1.value')).toBe(true);
             expect(_.deepIn(object, 'level1.level2')).toBe(true);
             expect(_.deepIn(object, 'level1.level2.value')).toBe(true);
             expect(_.deepIn(object, 'level1.level2.level3')).toBe(true);
             expect(_.deepIn(object, 'level1.level2.level3.value')).toBe(true);
+            expect(_.deepIn(objectWithArray, 'level1[0]level2')).toBe(true);
 
             expect(_.deepIn(object, 'blah')).toBe(false);
             expect(_.deepIn(object, 'level1.blah')).toBe(false);
             expect(_.deepIn(object, 'level1.level2.level3.blah')).toBe(false);
+            expect(_.deepIn(objectWithArray, 'level1[0][blah]')).toBe(false);
         });
     });
 
     describe('deepHas(object, propertyPath)', function(){
-        it('should return whether a value exist in an object tree, as own value, for the specified property path.', function(){
+        it('should return whether a value exists in an object tree, as own value, for the specified property path.', function(){
             expect(_.deepHas(object, 'level1')).toBe(true);
             expect(_.deepHas(object, 'level1.value')).toBe(true);
             expect(_.deepHas(object, 'level1.level2')).toBe(true);
@@ -100,10 +110,12 @@ describe('lodash-deep mixins', function(){
             expect(_.deepGet(object, 'level1.level2.value')).toBe('value 2');
             expect(_.isObject(_.deepGet(object, 'level1.level2.level3'))).toBe(true);
             expect(_.deepGet(object, 'level1.level2.level3.value')).toBe('value 3');
+            expect(_.deepGet(objectWithArray, 'level1[0]level2')).toBe('value 1');
 
             expect(_.deepGet(object, 'blah')).toBeUndefined();
             expect(_.deepGet(object, 'level1.blah')).toBeUndefined();
             expect(_.deepGet(object, 'level1.level2.level3.blah')).toBeUndefined();
+            expect(_.deepGet(objectWithArray, 'level1[0]blah.blah2')).toBeUndefined();
         });
     });
 
@@ -147,7 +159,7 @@ describe('lodash-deep mixins', function(){
         });
     });
 
-    ddescribe('syntax', function() {
+    describe('syntax', function() {
         it('allows for dot notation', function() {
             expect(_.deepHas(object, 'level1')).toBe(true);
         });
@@ -160,10 +172,10 @@ describe('lodash-deep mixins', function(){
             expect(_.deepHas(object, '[\'level1\']')).toBe(true);
         });
 
-        // todo: support arrays
-        // it('allows for numerical notation', function() {
-        //     expect(_.deepHas(object, '[0]')).toBe(true);
-        // });
+        // array support
+        it('allows for numerical notation', function() {
+            expect(_.deepHas(objectWithArray, 'level1[0]')).toBe(true);
+        });
 
         // this is a special case: if it doesn't match a quoted number or a regular number, you can use
         // bracket notation without any quotes. this is useful for dynamic values:
