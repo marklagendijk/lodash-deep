@@ -146,4 +146,48 @@ describe('lodash-deep mixins', function(){
             expect(_.deepPluck(array, 'level1.level2.level3.value')).toEqual(['value 3_1', 'value 3_2', 'value 3_3', undefined, undefined]);
         });
     });
+
+    ddescribe('syntax', function() {
+        it('allows for dot notation', function() {
+            expect(_.deepHas(object, 'level1')).toBe(true);
+        });
+
+        it('allows for double-quoted bracket notation', function() {
+            expect(_.deepHas(object, '["level1"]')).toBe(true);
+        });
+
+        it('allows for single-quoted (escaped) bracket notation', function() {
+            expect(_.deepHas(object, '[\'level1\']')).toBe(true);
+        });
+
+        // todo: support arrays
+        // it('allows for numerical notation', function() {
+        //     expect(_.deepHas(object, '[0]')).toBe(true);
+        // });
+
+        // this is a special case: if it doesn't match a quoted number or a regular number, you can use
+        // bracket notation without any quotes. this is useful for dynamic values:
+        it('allows for unquoted bracket notation', function() {
+            var dynamicKey = 'value';
+
+            expect(_.deepHas(object, 'level1[' + dynamicKey + ']')).toBe(true);
+        });
+
+        // you can also use regular dot notation
+        it('allows for unquoted bracket notation', function() {
+            var dynamicKey = 'value';
+
+            expect(_.deepHas(object, 'level1.' + dynamicKey)).toBe(true);
+        });
+
+        it('should match mixed bracket and dot separated properties', function() {
+            expect(_.deepHas(object, 'level1')).toBe(true);
+            expect(_.deepHas(object, 'level1["value"]')).toBe(true);
+            expect(_.deepHas(object, '["level1"][\'level2\']')).toBe(true);
+            expect(_.deepHas(object, 'level1.level2["value"]')).toBe(true);
+
+            expect(_.deepHas(object, 'level1.["level2"].level3')).toBe(false);
+            expect(_.deepHas(object, '["level1"].level2[\'level3\'].value')).toBe(false);
+        });
+    });
 });

@@ -16,6 +16,32 @@
     else{
         _ = window._;
     }
+    var getProperties = function(path) {
+        var finalProps = [];
+        var rawProps = path.split(/[\.\[\]]/); // split on . or [ or ]
+        rawProps = _.without(rawProps, ''); // get rid of empty properties
+
+        for (var i=0, l=rawProps.length; i<l; i++) {
+            var prop = rawProps[i];
+
+            console.log(prop);
+
+            // check certain properties
+            if (prop.match(/('|")(.*)('|")/)) {
+                // ["foo"] or [\'foo\'], also matches quoted numbers ["0"] or [\'0\'] or ["foo"]
+                finalProps.push(prop.replace(/('|")(.*)('|")/, '$2'));
+            } else if (prop.match(/^\d+$/)) {
+                // numerical index, e.g. [0] or [200]
+                finalProps.push(parseInt(prop, 10));
+            } else {
+                // dot-notation (note, this ALSO matches dynamic bracket-notation prop names, which aren't supported)
+                finalProps.push(prop);
+            }
+        }
+
+        console.log(finalProps);
+        return finalProps;
+    };
 
     _.extend(mixins, {
         /**
@@ -25,7 +51,7 @@
          * @returns {boolean}
          */
         deepIn: function(object, propertyPath){
-            var properties = propertyPath.split('.');
+            var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
                 if(_.isObject(object) && property in object){
@@ -45,7 +71,7 @@
          * @returns {boolean}
          */
         deepHas: function(object, propertyPath){
-            var properties = propertyPath.split('.');
+            var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
                 if(_.isObject(object) && object.hasOwnProperty(property)){
@@ -66,7 +92,7 @@
          */
         deepGet: function(object, propertyPath){
             if(_.deepIn(object, propertyPath)){
-                return _.reduce(propertyPath.split('.'), function(object, property){
+                return _.reduce(getProperties(propertyPath), function(object, property){
                     return object[property];
                 }, object);
             }
@@ -82,7 +108,7 @@
          */
         deepOwn: function(object, propertyPath){
             if(_.deepHas(object, propertyPath)){
-                return _.reduce(propertyPath.split('.'), function(object, property){
+                return _.reduce(getProperties(propertyPath), function(object, property){
                     return object[property];
                 }, object);
             }
@@ -100,7 +126,7 @@
         deepSet: function(object, propertyPath, value){
             var properties, property, currentObject;
 
-            properties = propertyPath.split('.');
+            properties = getProperties(propertyPath);
             currentObject = object;
             while(properties.length){
                 property = properties.shift();
