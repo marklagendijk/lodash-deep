@@ -150,6 +150,26 @@
             return propertyName
                 .replace(/\\/g, '\\\\')
                 .replace(/\./g, '\\.');
+        },
+        /**
+         * Maps all values in an object tree and returns a new object with the same structure as
+         *   the original.
+         * @param {Object} object - The object to map.
+         * @param {Function} callback - The function to be called per iteration on any non-object
+         *   value in the tree. Callback is invoked with 2 arguments: (value, propertyPath)
+         *   propertyPath is the period-deliniated path upon which the current callback
+         *   invocation is acting.
+         * @returns {Object}
+         */
+        deepMapValues: function(object, callback, propertyPath) {
+            var properties = getProperties(propertyPath)
+            if (_.isObject(object) && !_.isDate(object) && !_.isRegExp(object)) {
+                return _.extend(object, _.mapValues(object, function(value, key) {
+                    return _.deepMapValues(value, callback, _.flatten([properties, key]))
+                }))
+            } else {
+                return callback(object, properties.join('.'))
+            }
         }
     };
 

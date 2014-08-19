@@ -229,4 +229,25 @@ describe('lodash-deep mixins', function(){
             expect(_.deepEscapePropertyName('my.weird.property\\name')).toEqual('my\\.weird\\.property\\\\name');
         });
     });
+
+    describe('deepMapValues(object, callback)', function(){
+        it('should map all values in an object', function(){
+            var mappedObject = _.deepMapValues(object, function(value){ return 'foo ' + value + ' bar' });
+            expect(_.deepGet(mappedObject, 'level1.value')).toEqual('foo value 1 bar');
+            expect(_.deepGet(mappedObject, 'level1.level2.value')).toEqual('foo value 2 bar');
+        });
+
+        it('should copy, not map, prototype values', function(){
+            var mappedObject = _.deepMapValues(object, function(value){ return 'foo ' + value + ' bar' });
+            expect(_.deepGet(mappedObject, ['level1', 'level2', 'level3', 0, 'value'])).toEqual('value 3');
+        });
+    });
+
+    describe('deepMapValues(object, callback)', function(){
+        it('should provide the current property path to the callback function', function(){
+            var mappedObject = _.deepMapValues(object, function(value, path){ return (path + ' is ' + value) });
+            expect(_.deepGet(mappedObject, 'level1.value')).toEqual('level1.value is value 1');
+            expect(_.deepGet(mappedObject, 'level1.level2.value')).toEqual('level1.level2.value is value 2');
+        });
+    });
 });

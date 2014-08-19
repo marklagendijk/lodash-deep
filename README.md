@@ -9,7 +9,7 @@ Lodash mixins for (deep) object accessing / manipulation.
 ### Node.js
 1. `npm install lodash`
 2. `npm install lodash-deep`
-3. 
+3.
     ``` javascript
 
     var _ = require("lodash");
@@ -26,6 +26,7 @@ The following mixins are included in `lodash-deep`:
 - [_.deepHas](#_deephasobject-propertypath)
 - [_.deepCall](#_deepcallcollection-propertypath-thisarg-arg)
 - [_.deepApply](#_deepapplycollection-propertypath-thisarg-args)
+- [_.deepMapValues](#_deepmapvaluesobject-propertypath)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s). Array indices can also be used as property name.
@@ -319,10 +320,62 @@ _.deepApply(myObject, 'level1.level2.myFunc', myObject, [arg1, arg2]);
 // == myObject.level1.level2.myFunc(arg1, arg2)
 ```
 
+### _.deepMapValues(object, propertyPath)
+Maps all values in an object tree and returns a new object with the same structure as the original.
+
+#### object
+Type: `Object`
+
+The root object of the object tree.
+
+#### callback
+Type: `Function`
+
+The function to be called per iteration on any non-object value in the tree.
+
+Callback is invoked with 2 arguments: `(value, propertyPath)`.
+
+`propertyPath` is the period-deliniated path upon which the current callback invocation is acting.
+
+#### returns
+Type: `Object`
+
+``` javascript
+var object = {
+	level1: {
+		value: 'value 1'
+		level2: {
+			value: 'value 2'
+			level3: {
+				value: 'value 3'
+			}
+		}
+	}
+};
+
+_.deepMapValues(object, function(value, propertyPath){
+	return (propertyPath + ' is ' + value)
+});
+
+/** ->
+ *	{
+ *		level1: {
+ *			value: 'level1.value is value 1'
+ *			level2: {
+ *				value: 'level1.level2.value is value 2'
+ *				level3: {
+ *					value: 'level1.level2.level3.value is value 3'
+ *				}
+ *			}
+ *		}
+ *	};
+ */
+```
+
 ### Function name change
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
 
 ## Contributors
 - [Mark Lagendijk](@marklagendijk)
-- [Andrew Luetgers](@andrewluetgers) 
+- [Andrew Luetgers](@andrewluetgers)
 - [Nelson Pecora](@yoshokatana)
