@@ -175,6 +175,7 @@ describe('lodash-deep mixins', function(){
         // array support
         it('allows for numerical notation', function() {
             expect(_.deepHas(objectWithArray, 'level1[0]')).toBe(true);
+            expect(_.deepHas(objectWithArray, 'level1[1]')).toBe(false);
         });
 
         // this is a special case: if it doesn't match a quoted number or a regular number, you can use

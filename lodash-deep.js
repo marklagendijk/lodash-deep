@@ -30,7 +30,7 @@
                 finalProps.push(prop.replace(/('|")(.*)('|")/, '$2'));
             } else if (prop.match(/^\d+$/)) {
                 // numerical index, e.g. [0] or [200]
-                finalProps.push(parseInt(prop, 10));
+                finalProps.push(parseInt(prop)); // parseInt defaults to base 10 now
             } else {
                 // dot-notation (note, this ALSO matches dynamic bracket-notation prop names, which aren't supported)
                 finalProps.push(prop);
@@ -51,7 +51,7 @@
             var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if((_.isObject(object) && property in object || _.isArray(object) && object.indexOf(property) !== -1)){
+                if((_.isObject(object) && property in object) || (_.isArray(object) && object.indexOf(property) !== -1)){
                     object = object[property];
                 }
                 else{
