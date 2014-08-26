@@ -43,16 +43,16 @@
     _.extend(mixins, {
         /**
          * Executes a deep check for the existence of a property in an object tree.
-         * @param {Object} object - The root object of the object tree.
+         * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {boolean}
          */
-        deepIn: function(object, propertyPath){
+        deepIn: function(collection, propertyPath){
             var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if((_.isObject(object) && property in object) || (_.isArray(object) && object.indexOf(property) !== -1)){
-                    object = object[property];
+                if((_.isObject(collection) && property in collection) || (_.isArray(collection) && collection.indexOf(property) !== -1)){
+                    collection = collection[property];
                 }
                 else{
                     return false;
@@ -63,16 +63,16 @@
         },
         /**
          * Executes a deep check for the existence of a own property in an object tree.
-         * @param {Object} object - The root object of the object tree.
+         * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {boolean}
          */
-        deepHas: function(object, propertyPath){
+        deepHas: function(collection, propertyPath){
             var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if((_.isObject(object) && object.hasOwnProperty(property) || _.isArray(object) && object.indexOf(property) !== -1)){
-                    object = object[property];
+                if((_.isObject(collection) && collection.hasOwnProperty(property) || _.isArray(collection) && collection.indexOf(property) !== -1)){
+                    collection = collection[property];
                 }
                 else{
                     return false;
