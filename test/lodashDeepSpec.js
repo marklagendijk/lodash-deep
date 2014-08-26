@@ -1,4 +1,4 @@
-/* globals: beforeEach, describe, it, module, inject, expect */
+/* globals: beforeEach, describe, it, module, inject, expect, _ */
 describe('lodash-deep mixins', function(){
     'use strict';
     var object, array, objectWithArray;
