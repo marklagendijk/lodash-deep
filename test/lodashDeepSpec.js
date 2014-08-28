@@ -11,6 +11,9 @@ describe('lodash-deep mixins', function(){
                         value: 'value 3'
                     }
                 })
+            },
+            'level1.1': {
+            	value: 'value 1.1'
             }
         };
         object.level1.level2.value = 'value 2';
@@ -171,10 +174,20 @@ describe('lodash-deep mixins', function(){
         });
 
         // dynamic key support
-        it('allows for unquoted bracket notation', function() {
+        it('allows for dynamic keys', function() {
             var dynamicKey = 'value';
 
             expect(_.deepHas(object, 'level1.' + dynamicKey)).toBe(true);
+        });
+
+        // allow escaped dots in property names
+        it('allows for escaped dots in property names', function() {
+            expect(_.deepHas(object, 'level1\\.1')).toBe(true);
+            expect(_.deepGet(object, 'level1\\.1.value')).toBe('value 1.1');
+
+            expect(_.deepHas(object, 'level1.1')).toBe(false);
+            expect(_.deepHas(object, 'level1\.1')).toBe(false);
+            expect(_.deepHas(object, 'level1\\.1.level2')).toBe(false);
         });
     });
 });
