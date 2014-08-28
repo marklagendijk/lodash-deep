@@ -77,12 +77,12 @@ describe('lodash-deep mixins', function(){
             expect(_.deepIn(object, 'level1.level2.value')).toBe(true);
             expect(_.deepIn(object, 'level1.level2.level3')).toBe(true);
             expect(_.deepIn(object, 'level1.level2.level3.value')).toBe(true);
-            expect(_.deepIn(objectWithArray, 'level1[0]level2')).toBe(true);
+            expect(_.deepIn(objectWithArray, 'level1.0.level2')).toBe(true);
 
             expect(_.deepIn(object, 'blah')).toBe(false);
             expect(_.deepIn(object, 'level1.blah')).toBe(false);
             expect(_.deepIn(object, 'level1.level2.level3.blah')).toBe(false);
-            expect(_.deepIn(objectWithArray, 'level1[0][blah]')).toBe(false);
+            expect(_.deepIn(objectWithArray, 'level1.0.blah')).toBe(false);
         });
     });
 
@@ -110,12 +110,12 @@ describe('lodash-deep mixins', function(){
             expect(_.deepGet(object, 'level1.level2.value')).toBe('value 2');
             expect(_.isObject(_.deepGet(object, 'level1.level2.level3'))).toBe(true);
             expect(_.deepGet(object, 'level1.level2.level3.value')).toBe('value 3');
-            expect(_.deepGet(objectWithArray, 'level1[0]level2')).toBe('value 1');
+            expect(_.deepGet(objectWithArray, 'level1.0.level2')).toBe('value 1');
 
             expect(_.deepGet(object, 'blah')).toBeUndefined();
             expect(_.deepGet(object, 'level1.blah')).toBeUndefined();
             expect(_.deepGet(object, 'level1.level2.level3.blah')).toBeUndefined();
-            expect(_.deepGet(objectWithArray, 'level1[0]blah.blah2')).toBeUndefined();
+            expect(_.deepGet(objectWithArray, 'level1.0.blah.blah2')).toBeUndefined();
         });
     });
 
@@ -164,43 +164,17 @@ describe('lodash-deep mixins', function(){
             expect(_.deepHas(object, 'level1')).toBe(true);
         });
 
-        it('allows for double-quoted bracket notation', function() {
-            expect(_.deepHas(object, '["level1"]')).toBe(true);
-        });
-
-        it('allows for single-quoted (escaped) bracket notation', function() {
-            expect(_.deepHas(object, '[\'level1\']')).toBe(true);
-        });
-
         // array support
-        it('allows for numerical notation', function() {
-            expect(_.deepHas(objectWithArray, 'level1[0]')).toBe(true);
-            expect(_.deepHas(objectWithArray, 'level1[1]')).toBe(false);
+        it('allows for numerical (array) notation', function() {
+            expect(_.deepHas(objectWithArray, 'level1.0')).toBe(true);
+            expect(_.deepHas(objectWithArray, 'level1.1')).toBe(false);
         });
 
-        // this is a special case: if it doesn't match a quoted number or a regular number, you can use
-        // bracket notation without any quotes. this is useful for dynamic values:
-        it('allows for unquoted bracket notation', function() {
-            var dynamicKey = 'value';
-
-            expect(_.deepHas(object, 'level1[' + dynamicKey + ']')).toBe(true);
-        });
-
-        // you can also use regular dot notation
+        // dynamic key support
         it('allows for unquoted bracket notation', function() {
             var dynamicKey = 'value';
 
             expect(_.deepHas(object, 'level1.' + dynamicKey)).toBe(true);
-        });
-
-        it('should match mixed bracket and dot separated properties', function() {
-            expect(_.deepHas(object, 'level1')).toBe(true);
-            expect(_.deepHas(object, 'level1["value"]')).toBe(true);
-            expect(_.deepHas(object, '["level1"][\'level2\']')).toBe(true);
-            expect(_.deepHas(object, 'level1.level2["value"]')).toBe(true);
-
-            expect(_.deepHas(object, 'level1.["level2"].level3')).toBe(false);
-            expect(_.deepHas(object, '["level1"].level2[\'level3\'].value')).toBe(false);
         });
     });
 });

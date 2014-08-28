@@ -17,27 +17,13 @@
         _ = window._;
     }
     var getProperties = function(path) {
-        var finalProps = [];
-        var rawProps = path.split(/[\.\[\]]/); // split on . or [ or ]
-        rawProps = _.without(rawProps, ''); // get rid of empty properties
+        var props = encodeURI(path)
+        	.replace(/\./g, '%,')
+        	.replace(/%5c%,/ig, '.')
+        	.split(/%,/)
+        	.map(decodeURI);
 
-        for (var i=0, l=rawProps.length; i<l; i++) {
-            var prop = rawProps[i];
-
-            // check certain properties
-            if (prop.match(/('|")(.*)('|")/)) {
-                // ["foo"] or [\'foo\'], also matches quoted numbers ["0"] or [\'0\'] or ["foo"]
-                finalProps.push(prop.replace(/('|")(.*)('|")/, '$2'));
-            } else if (prop.match(/^\d+$/)) {
-                // numerical index, e.g. [0] or [200]
-                finalProps.push(parseInt(prop)); // parseInt defaults to base 10 now
-            } else {
-                // dot-notation (note, this ALSO matches dynamic bracket-notation prop names, which aren't supported)
-                finalProps.push(prop);
-            }
-        }
-
-        return finalProps;
+        return props;
     };
 
     _.extend(mixins, {
