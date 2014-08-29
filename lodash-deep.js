@@ -16,14 +16,18 @@
     else{
         _ = window._;
     }
-    var getProperties = function(path) {
-        var props = encodeURI(path)
-        	.replace(/\./g, '%,')
-        	.replace(/%5c%,/ig, '.')
-        	.split(/%,/)
-        	.map(decodeURI);
+    var getProperties = function(path) { // e.g. 'fo`o.bar.ba\\.z'
+        /* encoding the path allows us to parse unescaped dots
+         * without having to do multiple loops
+         * or trying to mock regex lookback in js
+         */
+        var props = encodeURI(path)  // 'fo%60o.bar.ba%5C.z'      (encode the escape char)
+        	.replace(/\./g, '%,')    // 'fo%60o%,bar%,ba%5C%,z'   (%, is the token we can split on)
+        	.replace(/%5c%,/ig, '.') // 'fo%60o%,bar%,ba.z'       (put the escaped dot back)
+        	.split(/%,/)             // ['fo%60o', 'bar', 'ba.z'] (now it's an array of encoded strings)
+        	.map(decodeURI);         // ['fo`o', 'bar', 'ba.z']   (decode, just in case other chars were encoded)
 
-        return props;
+        return props; // => ['fo`o', 'bar', 'ba.z'] 
     };
 
     _.extend(mixins, {
