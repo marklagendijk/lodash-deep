@@ -16,20 +16,33 @@
     else{
         _ = window._;
     }
+    var getProperties = function(path) { // e.g. 'fo`o.bar.ba\\.z'
+        /* encoding the path allows us to parse unescaped dots
+         * without having to do multiple loops
+         * or trying to mock regex lookback in js
+         */
+        var props = encodeURI(path)  // 'fo%60o.bar.ba%5C.z'      (encode the escape char)
+        	.replace(/\./g, '%,')    // 'fo%60o%,bar%,ba%5C%,z'   (%, is the token we can split on)
+        	.replace(/%5c%,/ig, '.') // 'fo%60o%,bar%,ba.z'       (put the escaped dot back)
+        	.split(/%,/)             // ['fo%60o', 'bar', 'ba.z'] (now it's an array of encoded strings)
+        	.map(decodeURI);         // ['fo`o', 'bar', 'ba.z']   (decode, just in case other chars were encoded)
+
+        return props; // => ['fo`o', 'bar', 'ba.z'] 
+    };
 
     _.extend(mixins, {
         /**
          * Executes a deep check for the existence of a property in an object tree.
-         * @param {Object} object - The root object of the object tree.
+         * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {boolean}
          */
-        deepIn: function(object, propertyPath){
-            var properties = propertyPath.split('.');
+        deepIn: function(collection, propertyPath){
+            var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if(_.isObject(object) && property in object){
-                    object = object[property];
+                if((_.isObject(collection) && property in collection) || (_.isArray(collection) && collection.indexOf(property) !== -1)){
+                    collection = collection[property];
                 }
                 else{
                     return false;
@@ -40,16 +53,16 @@
         },
         /**
          * Executes a deep check for the existence of a own property in an object tree.
-         * @param {Object} object - The root object of the object tree.
+         * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string} propertyPath - The dot separated propertyPath.
          * @returns {boolean}
          */
-        deepHas: function(object, propertyPath){
-            var properties = propertyPath.split('.');
+        deepHas: function(collection, propertyPath){
+            var properties = getProperties(propertyPath);
             while(properties.length){
                 var property = properties.shift();
-                if(_.isObject(object) && object.hasOwnProperty(property)){
-                    object = object[property];
+                if((_.isObject(collection) && collection.hasOwnProperty(property) || _.isArray(collection) && collection.indexOf(property) !== -1)){
+                    collection = collection[property];
                 }
                 else{
                     return false;
@@ -66,7 +79,7 @@
          */
         deepGet: function(object, propertyPath){
             if(_.deepIn(object, propertyPath)){
-                return _.reduce(propertyPath.split('.'), function(object, property){
+                return _.reduce(getProperties(propertyPath), function(object, property){
                     return object[property];
                 }, object);
             }
@@ -82,7 +95,7 @@
          */
         deepOwn: function(object, propertyPath){
             if(_.deepHas(object, propertyPath)){
-                return _.reduce(propertyPath.split('.'), function(object, property){
+                return _.reduce(getProperties(propertyPath), function(object, property){
                     return object[property];
                 }, object);
             }
@@ -100,7 +113,7 @@
         deepSet: function(object, propertyPath, value){
             var properties, property, currentObject;
 
-            properties = propertyPath.split('.');
+            properties = getProperties(propertyPath);
             currentObject = object;
             while(properties.length){
                 property = properties.shift();

@@ -229,5 +229,8 @@ _.deepHas(object, 'level1.level2.level3.value');
 // -> false
 ```
 
+### A Note on Notation
+Since dots are allowed in JavaScript property names, you can include them by double-escaping, e.g. `'foo.bar.ba\\.z'`
+
 ### Function name change
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
