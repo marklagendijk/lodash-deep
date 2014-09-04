@@ -54,7 +54,7 @@ The root object/array of the object tree.
 #### propertyPath
 Type: `string|Array`
 
-The [propertyPath](#_propertypath).
+The [propertyPath](#propertypath).
 
 #### value
 Type: `*`
@@ -83,7 +83,7 @@ The root object/array of the object tree.
 #### propertyPath
 Type: `string|Array`
 
-The [propertyPath](#_propertypath).
+The [propertyPath](#propertypath).
 
 #### returns
 Type: `*|undefined`
@@ -120,7 +120,7 @@ The root object/array of the object tree.
 #### propertyPath
 Type: `string|Array`
 
-The [propertyPath](#_propertypath).
+The [propertyPath](#propertypath).
 
 #### returns
 Type: `*|undefined`
@@ -157,7 +157,7 @@ The collection of object trees.
 #### propertyPath
 Type: `string|Array`
 
-The [propertyPath](#_propertypath).
+The [propertyPath](#propertypath).
 
 #### returns
 Type: `Array`
@@ -186,7 +186,7 @@ The root object/array of the object tree.
 #### propertyPath
 Type: `string|Array`
 
-The [propertyPath](#_propertypath).
+The [propertyPath](#propertypath).
 
 #### returns
 Type: `boolean`
@@ -222,7 +222,7 @@ The root object/array of the object tree.
 #### propertyPath
 Type: `string|Array`
 
-The [propertyPath](#_propertypath).
+The [propertyPath](#propertypath).
 
 #### returns
 Type: `boolean`
