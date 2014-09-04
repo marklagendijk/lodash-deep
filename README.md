@@ -25,18 +25,36 @@ The following mixins are included in `lodash-deep`:
 - [_.deepIn](#_deepinobject-propertypath)
 - [_.deepHas](#_deephasobject-propertypath)
 
-### _.deepSet(object, propertyPath, value)
-Sets a value of a property in an object tree. Any missing objects will be created.
+### propertyPath
+Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s). Array indices can also be used as property name.
+The propertyPath can be specified as either `string` or `Array`. When it is specified as string the `.` is used as separator between the different levels. Because of this all `.` and `\` characters of property names in a string based propertyPath have to be escaped by a `\`. The helper method `deepEscapePropertyName` is available for this purpose.
 
-#### object
-Type: `Object`
+``` javascript
+	// Simple property path
+	// { level1: { level2: { level3: [ 'value' ] }}}
+	var pathString = 'level1.level2.level3.0'; // as string
+	var pathArray = ['level1', 'level2', 'level3', 0]; // as array
 
-The root object of the object tree.
+	// Property path with '.' and '\'
+	// { 'lev.el1': { 'lev\\el2': { level3: [ 'value' ] }}}
+	var path2String = 'lev\\.el1.lev\\\\el2.level3.0'; // as manually escaped string
+	var path2StringAlt = _.deepEscapePropertyName('lev.el1') + '.' + _.deepEscapePropertyName('lev\\el2') + '.level3.0'; // as programmatically escaped string
+	var path2Array = ['lev.el1', 'lev\\el2', 'level3', 0]; // as array (just the plain names, you never have to escape anything when using the array syntax.
+```
+
+
+### _.deepSet(collection, propertyPath, value)
+Sets a value of a property in an object tree. Any missing objects/arrays will be created.
+
+#### collection
+Type: `Object|Array`
+
+The root object/array of the object tree.
 
 #### propertyPath
-Type: `string`
+Type: `string|Array`
 
-The dot separated propertyPath.
+The [propertyPath](#_propertypath).
 
 #### value
 Type: `*`
@@ -54,18 +72,18 @@ _.deepSet(object, 'level1.level2.level3.value', 'foo');
 // -> { level1: { level2: { level3: { value: 'foo' }}}}
 ```
 
-### _.deepGet(object, propertyPath)
-Retreives the value of a property in an object tree.
+### _.deepGet(collection, propertyPath)
+Retrieves the value of a property in an object tree.
 
-#### object
-Type: `Object`
+#### collection
+Type: `Object|Array`
 
-The root object of the object tree.
+The root object/array of the object tree.
 
 #### propertyPath
-Type: `string`
+Type: `string|Array`
 
-The dot separated propertyPath.
+The [propertyPath](#_propertypath).
 
 #### returns
 Type: `*|undefined`
@@ -91,18 +109,18 @@ _.deepGet(object, 'foo.bar.baz');
 // -> undefined
 ```
 
-### _.deepOwn(object, propertyPath)
-Retreives the value of a *own* property in an object tree.
+### _.deepOwn(collection, propertyPath)
+Retrieves the value of a *own* property in an object tree.
 
-#### object
-Type: `Object`
+#### collection
+Type: `Object|Array`
 
-The root object of the object tree.
+The root object/array of the object tree.
 
 #### propertyPath
-Type: `string`
+Type: `string|Array`
 
-The dot separated propertyPath.
+The [propertyPath](#_propertypath).
 
 #### returns
 Type: `*|undefined`
@@ -137,9 +155,9 @@ Type: `Object|Array`
 The collection of object trees.
 
 #### propertyPath
-Type: `string`
+Type: `string|Array`
 
-The dot separated propertyPath.
+The [propertyPath](#_propertypath).
 
 #### returns
 Type: `Array`
@@ -157,18 +175,18 @@ _.deepPluck(collection, 'level1.level2.level3.value');
 // -> [ 1, 2, 3, 4, undefined, undefined ]
 ```
 
-### _.deepIn(object, propertyPath)
+### _.deepIn(collection, propertyPath)
 Executes a deep check for the existence of a property in an object tree.
 
-#### object
-Type: `Object`
+#### collection
+Type: `Object|Array`
 
-The root object of the object tree.
+The root object/array of the object tree.
 
 #### propertyPath
-Type: `string`
+Type: `string|Array`
 
-The dot separated propertyPath.
+The [propertyPath](#_propertypath).
 
 #### returns
 Type: `boolean`
@@ -193,18 +211,18 @@ _.deepIn(object, 'level1.level2.level3.value');
 // -> true
 ```
 
-### _.deepHas(object, propertyPath)
+### _.deepHas(collection, propertyPath)
 Executes a deep check for the existence of a *own* property in an object tree.
 
-#### object
-Type: `Object`
+#### collection
+Type: `Object|Array`
 
-The root object of the object tree.
+The root object/array of the object tree.
 
 #### propertyPath
-Type: `string`
+Type: `string|Array`
 
-The dot separated propertyPath.
+The [propertyPath](#_propertypath).
 
 #### returns
 Type: `boolean`
@@ -231,3 +249,7 @@ _.deepHas(object, 'level1.level2.level3.value');
 
 ### Function name change
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
+
+## Contributors
+- [Mark Lagendijk](@marklagendijk)
+- [Nelson Pecora](@yoshokatana)
