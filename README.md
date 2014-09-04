@@ -252,4 +252,5 @@ In version 1.2.0 function names were simplified. Backward compatibility with the
 
 ## Contributors
 - [Mark Lagendijk](@marklagendijk)
+- [Andrew Luetgers](@andrewluetgers) 
 - [Nelson Pecora](@yoshokatana)
