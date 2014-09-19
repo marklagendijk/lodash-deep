@@ -24,6 +24,8 @@ The following mixins are included in `lodash-deep`:
 - [_.deepPluck](#_deeppluckcollection-propertypath)
 - [_.deepIn](#_deepinobject-propertypath)
 - [_.deepHas](#_deephasobject-propertypath)
+- [_.deepCall](#_deepcallcollection-propertypath-thisarg-arg)
+- [_.deepApply](#_deepapplycollection-propertypath-thisarg-args)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s). Array indices can also be used as property name.
