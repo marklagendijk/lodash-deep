@@ -247,6 +247,76 @@ _.deepHas(object, 'level1.level2.level3.value');
 // -> false
 ```
 
+### _.deepCall(collection, propertyPath, thisArg, arg)
+Calls a function located at the specified property path.
+
+#### collection
+Type: `Object|Array`
+
+The root object/array of the object tree.
+
+#### propertyPath
+Type: `string|Array`
+
+The [propertyPath](#propertypath).
+
+#### thisArg
+Type: `Object`
+
+The 'this' argument the function should be executed with.
+
+#### arg1 ... argN
+Type: `*`
+
+One of the arguments the function should be executed with. Can occur 0..n times.
+
+#### returns
+Type: `*`
+
+The result of executing the function.
+
+``` javascript
+_.deepCall(myObject, 'level1.level2.myFunc', myObject, arg1, arg2);
+// == myObject.level1.level2.myFunc.call(myObject, arg1, arg2)
+// == myObject.level1.level2.myFunc.apply(myObject, [arg1, arg2])
+// == myObject.level1.level2.myFunc(arg1, arg2)
+```
+
+### _.deepApply(collection, propertyPath, thisArg, args)
+Calls a function located at the specified property path.
+
+#### collection
+Type: `Object|Array`
+
+The root object/array of the object tree.
+
+#### propertyPath
+Type: `string|Array`
+
+The [propertyPath](#propertypath).
+
+#### thisArg
+Type: `Object`
+
+The 'this' argument the function should be executed with.
+
+#### args
+Type: `Array`
+
+The arguments the function should be executed with.
+
+#### returns
+Type: `*`
+
+The result of executing the function.
+
+``` javascript
+_.deepApply(myObject, 'level1.level2.myFunc', myObject, [arg1, arg2]);
+// == myObject.level1.level2.myFunc.apply(myObject, [arg1, arg2])
+// == myObject.level1.level2.myFunc.call(myObject, arg1, arg2)
+// == myObject.level1.level2.myFunc(arg1, arg2)
+```
+
 ### Function name change
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
 
