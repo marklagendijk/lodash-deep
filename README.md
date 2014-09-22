@@ -375,7 +375,7 @@ _.deepMapValues(object, function(value, propertyPath){
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
 
 ## Contributors
-- [Mark Lagendijk](@marklagendijk)
-- [Andrew Luetgers](@andrewluetgers)
-- [Nelson Pecora](@yoshokatana)
-- [Mark Battersby](@markalfred)
+- [Mark Lagendijk](https://github.com/marklagendijk)
+- [Andrew Luetgers](https://github.com/andrewluetgers)
+- [Nelson Pecora](https://github.com/yoshokatana)
+- [Mark Battersby](https://github.com/markalfred)
