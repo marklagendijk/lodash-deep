@@ -336,7 +336,7 @@ Callback is invoked with 2 arguments: `(value, propertyPath)`.
 
 `value` the value of the current property.
 
-`propertyPath` the path of the current property, in array format.
+`propertyPath` the [propertyPath](#propertypath) of the current property, in array format.
 
 #### returns
 Type: `Object`
@@ -355,7 +355,7 @@ var object = {
 };
 
 _.deepMapValues(object, function(value, propertyPath){
-	return (propertyPath + ' is ' + value)
+	return (propertyPath.join('.') + ' is ' + value)
 });
 
 /** ->
