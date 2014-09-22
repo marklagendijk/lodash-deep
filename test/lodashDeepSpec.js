@@ -1,7 +1,17 @@
-/* globals: beforeEach, describe, it, module, inject, expect */
+/* globals: require, beforeEach, describe, it, module, inject, expect */
 describe('lodash-deep mixins', function(){
     'use strict';
-    var object, array, objectWithFunc, thisArg;
+    var isNode, _, object, array, objectWithFunc, thisArg;
+    isNode = (typeof module !== 'undefined' && module.exports);
+    if(isNode){
+        _ = require('lodash');
+        _.mixin(require('../lodash-deep.min.js'));
+    }
+    else{
+        _ = window._;
+    }
+
+
     beforeEach(function(){
         object = {
             level1: {

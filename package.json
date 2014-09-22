@@ -10,16 +10,17 @@
     "lodash": ">=2.4.1"
   },
   "devDependencies": {
+    "gulp": "~3.3.0",
+    "gulp-karma": "0.0.1",
+    "gulp-rename": "~0.2.1",
+    "gulp-uglify": "~0.1.0",
+    "jasmine-node": "^1.14.5",
     "karma": "~0.11.9",
     "karma-chrome-launcher": "~0.1.2",
-    "karma-jasmine": "~0.1.5",
-    "gulp": "~3.3.0",
-    "gulp-uglify": "~0.1.0",
-    "gulp-karma": "0.0.1",
-    "gulp-rename": "~0.2.1"
+    "karma-jasmine": "~0.1.5"
   },
   "scripts": {
-    "test": "gulp test"
+    "test": "jasmine-node ./test/lodashDeepSpec.js"
   },
   "repository": {
     "type": "git",

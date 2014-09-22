@@ -5,7 +5,7 @@ var karma = require("gulp-karma");
 
 var config = require('./config/config.js');
 
-gulp.task("test", ["minify"], function(){
+gulp.task("test-browser", ["minify"], function(){
     gulp.src(config.testFiles)
         .pipe(karma({
             configFile: 'config/karma.conf.js',

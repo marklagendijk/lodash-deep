@@ -1,0 +1,7 @@
+language: node_js
+node_js:
+  - "0.10"
+  - "0.11"
+before_install:
+  - currentfolder=${PWD##*/}
+  - if [ "$currentfolder" != 'lodash-deep' ]; then cd .. && eval "mv $currentfolder lodash-deep" && cd lodash-deep; fi
