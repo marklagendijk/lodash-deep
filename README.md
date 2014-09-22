@@ -378,3 +378,4 @@ In version 1.2.0 function names were simplified. Backward compatibility with the
 - [Mark Lagendijk](@marklagendijk)
 - [Andrew Luetgers](@andrewluetgers)
 - [Nelson Pecora](@yoshokatana)
+- [Mark Battersby](@markalfred)
