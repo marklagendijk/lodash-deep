@@ -1,4 +1,4 @@
-# lodash-deep [![NPM version][npm-image]][npm-url] [![Dependency Status][depstat-image]][depstat-url]
+# lodash-deep [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 Lodash mixins for (deep) object accessing / manipulation.
 
 ## Installation
@@ -384,3 +384,12 @@ Please use the `canary` branch when creating a pull request.
 - [Andrew Luetgers](https://github.com/andrewluetgers)
 - [Nelson Pecora](https://github.com/yoshokatana)
 - [Mark Battersby](https://github.com/markalfred)
+
+[npm-url]:https://www.npmjs.org/package/lodash-deep
+[npm-image]: https://badge.fury.io/js/lodash-deep.png
+
+[travis-url]: http://travis-ci.org/marklagendijk/lodash-deep
+[travis-image]: https://secure.travis-ci.org/marklagendijk/lodash-deep.png?branch=master
+
+[depstat-url]: https://david-dm.org/marklagendijk/lodash-deep
+[depstat-image]: https://david-dm.org/marklagendijk/lodash-deep.png
