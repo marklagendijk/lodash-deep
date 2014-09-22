@@ -334,6 +334,8 @@ The function to be called per iteration on any non-object value in the tree.
 
 Callback is invoked with 2 arguments: `(value, propertyPath)`.
 
+`value` the value of the current property.
+
 `propertyPath` the path of the current property, in array format.
 
 #### returns
