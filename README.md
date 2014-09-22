@@ -334,7 +334,7 @@ The function to be called per iteration on any non-object value in the tree.
 
 Callback is invoked with 2 arguments: `(value, propertyPath)`.
 
-`propertyPath` is the period-deliniated path upon which the current callback invocation is acting.
+`propertyPath` the path of the current property, in array format.
 
 #### returns
 Type: `Object`
