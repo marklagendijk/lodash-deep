@@ -1,6 +1,6 @@
 {
   "name": "lodash-deep",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Lodash mixins for (deep) object accessing / manipulation.",
   "main": "lodash-deep.js",
   "directories": {
