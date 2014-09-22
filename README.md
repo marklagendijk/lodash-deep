@@ -18,12 +18,12 @@ Lodash mixins for (deep) object accessing / manipulation.
 
 ## Docs
 The following mixins are included in `lodash-deep`:
-- [_.deepSet](#_deepsetobject-propertypath-value)
-- [_.deepGet](#_deepgetobject-propertypath)
-- [_.deepOwn](#_deepownobject-propertypath)
+- [_.deepSet](#_deepsetcollection-propertypath-value)
+- [_.deepGet](#_deepgetcollection-propertypath)
+- [_.deepOwn](#_deepowncollection-propertypath)
 - [_.deepPluck](#_deeppluckcollection-propertypath)
-- [_.deepIn](#_deepinobject-propertypath)
-- [_.deepHas](#_deephasobject-propertypath)
+- [_.deepIn](#_deepincollection-propertypath)
+- [_.deepHas](#_deephascollection-propertypath)
 - [_.deepCall](#_deepcallcollection-propertypath-thisarg-arg)
 - [_.deepApply](#_deepapplycollection-propertypath-thisarg-args)
 - [_.deepMapValues](#_deepmapvaluesobject-propertypath)
