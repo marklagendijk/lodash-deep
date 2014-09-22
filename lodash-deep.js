@@ -139,7 +139,12 @@
          */
         deepApply: function(collection, propertyPath, thisArg, args){
             var func = _.deepGet(collection, propertyPath);
-            return func.apply(thisArg, args);
+            if(_.isFunction(func)){
+                return func.apply(thisArg, args);
+            }
+            else{
+                return undefined;
+            }
         },
         /**
          * Escapes a property name for usage in a string based property path.
