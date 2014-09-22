@@ -1,4 +1,4 @@
-# lodash-deep
+# lodash-deep [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 Lodash mixins for (deep) object accessing / manipulation.
 
 ## Installation
