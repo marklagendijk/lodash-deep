@@ -279,14 +279,13 @@ Type: `*`
 The result of executing the function.
 
 ``` javascript
-_.deepCall(myObject, 'level1.level2.myFunc', myObject, arg1, arg2);
-// == myObject.level1.level2.myFunc.call(myObject, arg1, arg2)
-// == myObject.level1.level2.myFunc.apply(myObject, [arg1, arg2])
-// == myObject.level1.level2.myFunc(arg1, arg2)
+_.deepCall(myObject, 'level1.level2.myFunc', myObject, 'arg1', 'arg2');
+// if it exists -> result of myObject.level1.level2.myFunc('arg1', 'arg2')
+// if it does not exist -> undefined
 ```
 
 ### _.deepApply(collection, propertyPath, thisArg, args)
-Calls a function located at the specified property path.
+Calls a function located at the specified property path, if it exists.
 
 #### collection
 Type: `Object|Array`
@@ -314,10 +313,10 @@ Type: `*`
 The result of executing the function.
 
 ``` javascript
-_.deepApply(myObject, 'level1.level2.myFunc', myObject, [arg1, arg2]);
-// == myObject.level1.level2.myFunc.apply(myObject, [arg1, arg2])
-// == myObject.level1.level2.myFunc.call(myObject, arg1, arg2)
-// == myObject.level1.level2.myFunc(arg1, arg2)
+var args = ['arg1', 'arg2'];
+_.deepApply(myObject, 'level1.level2.myFunc', myObject, args);
+// if it exists -> result of myObject.level1.level2.myFunc('arg1', 'arg2')
+// if it does not exist -> undefined
 ```
 
 ### _.deepMapValues(object, propertyPath)

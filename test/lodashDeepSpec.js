@@ -198,8 +198,8 @@ describe('lodash-deep mixins', function(){
             });
         });
 
-        it('should throw an error if the function does not exist', function(){
-            expect(_.deepCall.bind(objectWithFunc, 'blah.blah')).toThrow();
+        it('should return undefined if the function does not exist', function(){
+            expect(_.deepCall(objectWithFunc, 'blah.blah')).toBeUndefined();
         });
     });
 
@@ -220,7 +220,7 @@ describe('lodash-deep mixins', function(){
         });
 
         it('should throw an error if the function does not exist', function(){
-            expect(_.deepCall.bind(objectWithFunc, 'blah.blah')).toThrow();
+            expect(_.deepCall(objectWithFunc, 'blah.blah')).toBeUndefined();
         });
     });
 
