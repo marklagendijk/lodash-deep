@@ -251,7 +251,7 @@ _.deepHas(object, 'level1.level2.level3.value');
 ```
 
 ### _.deepCall(collection, propertyPath, thisArg, arg)
-Calls a function located at the specified property path.
+Calls a function located at the specified property path, if it exists.
 
 #### collection
 Type: `Object|Array`
@@ -276,7 +276,7 @@ One of the arguments the function should be executed with. Can occur 0..n times.
 #### returns
 Type: `*`
 
-The result of executing the function.
+The result of executing the function if it exists, or undefined if the function doesn't exist.
 
 ``` javascript
 _.deepCall(myObject, 'level1.level2.myFunc', myObject, 'arg1', 'arg2');
@@ -310,7 +310,7 @@ The arguments the function should be executed with.
 #### returns
 Type: `*`
 
-The result of executing the function.
+The result of executing the function if it exists, or undefined if the function doesn't exist.
 
 ``` javascript
 var args = ['arg1', 'arg2'];
