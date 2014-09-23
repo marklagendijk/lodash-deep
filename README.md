@@ -1,5 +1,8 @@
-# lodash-deep [![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Sauce Test Status][sauce-image]][sauce-url] [![Dependency Status][depstat-image]][depstat-url]
-Lodash mixins for (deep) object accessing / manipulation.
+# lodash-deep 
+> Lodash mixins for (deep) object accessing / manipulation.
+
+[![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Sauce Test Status][sauce-image]][sauce-url] [![Dependency Status][depstat-image]][depstat-url]
+
 
 ## Compatibility
 lodash-deep is currently compatible with:
