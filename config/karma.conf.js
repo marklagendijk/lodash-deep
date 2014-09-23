@@ -77,17 +77,31 @@ module.exports = function(karmaConfig){
                 platform: 'OS X 10.9',
                 version: '7'
             },
+            /*
             'SL_IE_7': {
                 base: 'SauceLabs',
                 browserName: 'internet explorer',
                 platform: 'Windows XP',
                 version: '7'
             },
+            'SL_IE_8': {
+                base: 'SauceLabs',
+                browserName: 'internet explorer',
+                platform: 'Windows XP',
+                version: '8'
+            },
+            */
             'SL_IE_9': {
                 base: 'SauceLabs',
                 browserName: 'internet explorer',
                 platform: 'Windows 7',
                 version: '9'
+            },
+            'SL_IE_10': {
+                base: 'SauceLabs',
+                browserName: 'internet explorer',
+                platform: 'Windows 7',
+                version: '10'
             },
             'SL_IE_11': {
                 base: 'SauceLabs',
