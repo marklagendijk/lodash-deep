@@ -1,17 +1,21 @@
 var gulp = require("gulp");
 var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
-var karma = require("gulp-karma");
+var karma = require("karma").server;
+var jasmine = require("gulp-jasmine");
 
-var config = require('./config/config.js');
-
-gulp.task("test-browser", ["minify"], function(){
-    gulp.src(config.testFiles)
-        .pipe(karma({
-            configFile: 'config/karma.conf.js',
-            action: 'run'
-        }));
+gulp.task("test-browser", ["minify"], function(callback){
+    karma.start({
+        configFile: process.cwd() + '/config/karma.conf.js'
+    }, callback);
 });
+
+gulp.task("test-node", function(){
+    return gulp.src('test/*')
+        .pipe(jasmine());
+});
+
+gulp.task("test", ["test-browser", "test-node"]);
 
 gulp.task("minify", function(){
     gulp.src("lodash-deep.js")

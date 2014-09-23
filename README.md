@@ -1,6 +1,11 @@
 # lodash-deep [![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
 Lodash mixins for (deep) object accessing / manipulation.
 
+## Compatibility
+lodash-deep is currently compatible with:
+- Node.js
+- All ES5 compatible browsers (IE9+, Chrome, Firefox, Safari etc)
+
 ## Installation
 ### Bower
 1. `bower install lodash-deep`
