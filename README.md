@@ -1,4 +1,4 @@
-# lodash-deep [![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][depstat-image]][depstat-url]
+# lodash-deep [![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Sauce Test Status][sauce-image]][sauce-url] [![Dependency Status][depstat-image]][depstat-url]
 Lodash mixins for (deep) object accessing / manipulation.
 
 ## Compatibility
@@ -391,13 +391,16 @@ Please use the `canary` branch when creating a pull request.
 - [Mark Battersby](https://github.com/markalfred)
 
 [bower-url]: https://github.com/marklagendijk/lodash-deep/releases/latest
-[bower-image]: https://badge.fury.io/bo/lodash-deep.png
+[bower-image]: https://badge.fury.io/bo/lodash-deep.svg
 
 [npm-url]: https://www.npmjs.org/package/lodash-deep
-[npm-image]: https://badge.fury.io/js/lodash-deep.png
+[npm-image]: https://badge.fury.io/js/lodash-deep.svg
 
 [travis-url]: http://travis-ci.org/marklagendijk/lodash-deep
-[travis-image]: https://secure.travis-ci.org/marklagendijk/lodash-deep.png?branch=master
+[travis-image]: https://secure.travis-ci.org/marklagendijk/lodash-deep.svg?branch=master
+
+[sauce-url]: https://saucelabs.com/u/marklagendijk
+[sauce-image]: https://saucelabs.com/buildstatus/marklagendijk
 
 [depstat-url]: https://david-dm.org/marklagendijk/lodash-deep
-[depstat-image]: https://david-dm.org/marklagendijk/lodash-deep.png
+[depstat-image]: https://david-dm.org/marklagendijk/lodash-deep.svg
