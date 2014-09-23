@@ -24,7 +24,7 @@
     "npm": ">=1.2.10"
   },
   "scripts": {
-    "test": "gulp test-node"
+    "test": "gulp test"
   },
   "repository": {
     "type": "git",

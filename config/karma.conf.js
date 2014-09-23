@@ -102,10 +102,6 @@ module.exports = function(karmaConfig){
             sauceLabs: {
                 testName: 'lodash-deep',
                 recordScreenshots: false,
-                connectOptions: {
-                    port: 5757,
-                    logfile: 'sauce_connect.log'
-                }
             },
             captureTimeout: 120000,
             customLaunchers: customLaunchers,
