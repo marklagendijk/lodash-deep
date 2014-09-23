@@ -114,7 +114,8 @@ module.exports = function(karmaConfig){
         _.extend(config, {
             reporters: ['progress', 'saucelabs'],
             sauceLabs: {
-                testName: 'lodash-deep'
+                testName: 'lodash-deep',
+                recordScreenshots: false
             },
             captureTimeout: 120000,
             customLaunchers: customLaunchers,
