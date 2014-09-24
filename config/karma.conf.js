@@ -117,7 +117,7 @@ module.exports = function(karmaConfig){
                 testName: 'lodash-deep',
                 recordScreenshots: false
             },
-            captureTimeout: 120000,
+            captureTimeout: 300000,
             customLaunchers: customLaunchers,
             browsers: Object.keys(customLaunchers)
         });
