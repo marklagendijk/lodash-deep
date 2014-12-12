@@ -165,7 +165,7 @@
          * @returns {Object}
          */
         deepMapValues: function(object, callback, propertyPath){
-            var properties = getProperties(propertyPath)
+            var properties = getProperties(propertyPath);
             if(_.isObject(object) && !_.isDate(object) && !_.isRegExp(object)){
                 return _.extend(object, _.mapValues(object, function(value, key){
                     return _.deepMapValues(value, callback, _.flatten([properties, key]));
@@ -202,36 +202,54 @@
             return [];
         }
 
-        var escape = false;
+        var i = 0;
+        var ch = '';
+        var len = propertyPath.length;
         var path = [];
         var step = '';
-        var len = propertyPath.length;
-        var ch = '';
-        var i = 0;
+        var error = null;
+        var escape = false;
+        var control = false;
+        var brackets = false;
 
         // walk through the path and find backslashes that escape
         // periods or other backslashes, and split on unescaped periods
-        stepper:
+        // and brackets
         for (; i < len; i++) {
-            ch = propertyPath.charAt(i);
+            ch = propertyPath[i];
+            control = (ch === '\\' || ch === '[' || ch === ']' || ch === '.');
 
-            if (!escape) {
+            if (control && !escape) {
+                if (brackets && ch !== ']') {
+                    error = 'unexpected "' + ch + '" within brackets';
+                    break;
+                }
+
                 switch (ch) {
                 case '\\':
                     escape = true;
-                    continue stepper;
+                    break;
                 case ']':
-                    continue stepper;
+                    brackets = false;
+                    break;
                 case '[':
+                    brackets = true;
+                    /* falls through */
                 case '.':
                     path.push(step);
                     step = '';
-                    continue stepper;
+                    break;
                 }
+
+                continue;
             }
 
             step += ch;
             escape = false;
+        }
+
+        if (error) {
+            throw new SyntaxError(error + ' at character ' + i + ' in property path ' + propertyPath);
         }
 
         // capture the final step
