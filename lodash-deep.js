@@ -189,27 +189,6 @@
     }
 
     /**
-     * The RegEx used by getPropertyPathParts
-     * We want to split on any non-escaped dot. Because the escape character can be escaped itself we have to check that
-     * the dot is not preceded by an uneven amount of backslashes.
-     * Normally we would use the following RegEx to split the path into the appropriate parts:
-     * /(?<!\\)(?:\\\\)*\./
-     * 1. (?<!\\)    Sequence not starting with \. This is called a 'lookbehind'.
-     * 2. (\\\\)    Any number of \\
-     * 3. \.        A dot
-     * Unfortunately Javascript does not support 'lookbehind', so we have to use a workaround.
-     * Since Javascript does support 'lookahead' we can reverse both the path, and the RegEx (so it can use 'lookahead'
-     * instead of 'lookbehind')
-     * The reverse RegEx is:
-     * /\.(\\\\)*(?!(\\))/
-     * 1. \.        A dot
-     * 2. (\\\\)*    Any number of \\
-     * 3. (?!(\\))    Sequence not ending with \. This is called a 'lookahead'.
-     * @type {RegExp}
-     */
-    var reversePathSplitRegex = /\.(\\\\)*(?!(\\))/;
-
-    /**
      * Returns the property path as array.
      * @param {string|Array} propertyPath
      * @returns {Array}
@@ -218,39 +197,45 @@
         if(_.isArray(propertyPath)){
             return propertyPath;
         }
-        else if(!_.isString(propertyPath)){
+
+        if(!_.isString(propertyPath)){
             return [];
         }
 
-        // Reverse the path, so it can be used with the reverse RegEx
-        return _(reverseString(propertyPath)
-            // Split using the RegEx.
-            .split(reversePathSplitRegex)
-            // Reverse the parts of the array, to get them in original order
-            .reverse())
-            // The array returned by the splitting RegEx contains 3 items per path part:
-            // 1. The main part
-            // 2. undefined
-            // 3. Backslashes located at the end of the part
-            // Add these together to appropriate path parts
-            .forEach(function(part, index, parts){
-                if(index % 3 === 2 && part !== undefined){
-                    parts[index - 2] += part;
-                    parts[index] = undefined;
-                }
-            })
-            // Remove undefined items
-            .pull(undefined)
-            // Unescape the parts, and reverse their contents back to original order
-            .map(function(part){
-                return reverseString(part)
-                    .replace(/\\\\/g, '\\')
-                    .replace(/\\\./g, '.');
-            })
-            .value();
-    }
+        var escape = false;
+        var path = [];
+        var step = '';
+        var len = propertyPath.length;
+        var ch = '';
+        var i = 0;
 
-    function reverseString(string){
-        return string.split('').reverse().join('');
+        // walk through the path and find backslashes that escape
+        // periods or other backslashes, and split on unescaped periods
+        stepper:
+        for (; i < len; i++) {
+            ch = propertyPath.charAt(i);
+
+            if (!escape) {
+                switch (ch) {
+                case '\\':
+                    escape = true;
+                    continue stepper;
+                case ']':
+                    continue stepper;
+                case '[':
+                case '.':
+                    path.push(step);
+                    step = '';
+                    continue stepper;
+                }
+            }
+
+            step += ch;
+            escape = false;
+        }
+
+        // capture the final step
+        path.push(step);
+        return path;
     }
 })();
