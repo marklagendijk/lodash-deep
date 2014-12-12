@@ -3,12 +3,21 @@
  * @author Mark Lagendijk <mark@lagendijk.info>
  * @license MIT
  */
-(function(undefined){
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['lodash'], factory);
+    } else if (typeof exports === 'object') {
+        // Node. Does not work with strict CommonJS, but
+        // only CommonJS-like environments that support module.exports,
+        // like Node.
+        module.exports = factory(require('lodash').runInContext());
+    } else {
+        // Browser globals (root is window)
+        root._.mixin(factory(root._));
+    }
+}(this, function (_, undefined) {
     'use strict';
-
-    // Node.js support
-    var isNode = (typeof module !== 'undefined' && module.exports);
-    var _ = isNode ? require('lodash').runInContext() : window._;
 
     var mixins = {
         /**
@@ -165,7 +174,7 @@
          * @returns {Object}
          */
         deepMapValues: function(object, callback, propertyPath){
-            var properties = getProperties(propertyPath)
+            var properties = getProperties(propertyPath);
             if(_.isObject(object) && !_.isDate(object) && !_.isRegExp(object)){
                 return _.extend(object, _.mapValues(object, function(value, key){
                     return _.deepMapValues(value, callback, _.flatten([properties, key]));
@@ -183,10 +192,6 @@
     mixins.deepGetOwnValue = mixins.deepOwn;
 
     _.mixin(mixins);
-
-    if(isNode){
-        module.exports = mixins;
-    }
 
     /**
      * The RegEx used by getPropertyPathParts
@@ -253,4 +258,6 @@
     function reverseString(string){
         return string.split('').reverse().join('');
     }
-})();
+
+    return mixins;
+}));
