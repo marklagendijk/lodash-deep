@@ -260,4 +260,53 @@ describe('lodash-deep mixins', function(){
             expect(_.deepGet(mappedObject, 'level1.level2.value')).toEqual('level1.level2.value is value 2');
         });
     });
+
+    describe('getProperties(), via deepGet(object, stringPath)', function() {
+        it('ignores periods that are escaped', function () {
+            var obj = { a: { b: { 'name.prop': 3 } } };
+            expect(_.deepGet(obj, 'a.b.name\\.prop')).toEqual(3);
+        });
+
+        it('ignores back-slashes that are escaped', function () {
+            var obj = { a: { b: { 'name\\\\\\prop': 3 } } };
+            expect(_.deepGet(obj, 'a.b.name\\\\\\\\\\\\prop')).toEqual(3);
+        });
+
+        it('ignores brackets that are escaped', function () {
+            var obj = { a: { b: { 'name[p]rop': 3 } } };
+            expect(_.deepGet(obj, 'a.b.name\\[p\\]rop')).toEqual(3);
+        });
+
+        it('uses brackets similar to array/variable property notation', function () {
+            var obj = { a: { b: { 'name.prop': [1,2,3] } } };
+            expect(_.deepGet(obj, 'a.b.name\\.prop[2]')).toEqual(3);
+        });
+
+        it('allows multiple braces on after the other', function () {
+            var obj = { a: { b: { 'name.prop': [[1,2,3]] } } };
+            expect(_.deepGet(obj, 'a.b.name\\.prop[0][2]')).toEqual(3);
+        });
+
+        describe('syntax errors', function() {
+            it('should throw when there are periods inside the brackets', function () {
+                try {
+                    _.deepGet({}, 'a[2.0]');
+                    expect(false).toEqual(true);
+                } catch (e) {
+                    expect(e instanceof SyntaxError).toEqual(true);
+                    expect(/unexpected "\."/.test(e.message)).toEqual(true);
+                }
+            });
+
+            it('should throw when there are left brackets inside the brackets', function () {
+                try {
+                    _.deepGet({}, 'a.b.c[00[2]');
+                    expect(false).toEqual(true);
+                } catch (e) {
+                    expect(e instanceof SyntaxError).toEqual(true);
+                    expect(/unexpected "\["/.test(e.message)).toEqual(true);
+                }
+            });
+        });
+    });
 });
