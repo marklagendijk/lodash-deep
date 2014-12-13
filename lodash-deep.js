@@ -252,6 +252,11 @@
             throw new SyntaxError(error + ' at character ' + i + ' in property path ' + propertyPath);
         }
 
+        if (path[0] === '') {
+            //allow '[0]', or '.0'
+            path.splice(0, 1);
+        }
+
         // capture the final step
         path.push(step);
         return path;
