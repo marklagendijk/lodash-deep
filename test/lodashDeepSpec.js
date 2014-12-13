@@ -1,4 +1,4 @@
-/* globals: require, beforeEach, describe, it, module, inject, expect */
+/* globals: require, beforeEach, describe, it, module, inject, expect, spyOn */
 describe('lodash-deep mixins', function(){
     'use strict';
     var isNode, _, object, array, objectWithFunc, thisArg;
@@ -115,11 +115,14 @@ describe('lodash-deep mixins', function(){
     });
 
     describe('deepHas(collection, propertyPath)', function(){
-        it('should return whether a value exist in an object tree, as own value, for the specified property path.', function(){
+        it('should return whether a value exists in an object tree, as own value, for the specified property path.', function(){
             expect(_.deepHas(object, 'level1')).toBe(true);
             expect(_.deepHas(object, 'level1.value')).toBe(true);
             expect(_.deepHas(object, 'level1.level2')).toBe(true);
             expect(_.deepHas(object, 'level1.level2.value')).toBe(true);
+
+            expect(_.deepHas(object, 'level1.value.length')).toBe(true);
+            expect(_.deepHas(object, 'level1.level2.value.length')).toBe(true);
 
             expect(_.deepHas(object, 'level1.level2.level3.0')).toBe(false);
             expect(_.deepHas(object, 'level1.level2.level3.0.value')).toBe(false);
@@ -189,6 +192,13 @@ describe('lodash-deep mixins', function(){
             expect(_.deepPluck(array, 'level1.level2.value')).toEqual(['value 2_1', 'value 2_2', 'value 2_3', undefined, undefined]);
             expect(_.deepPluck(array, 'level1.level2.level3.0.value')).toEqual(['value 3_1', 'value 3_2', 'value 3_3', undefined, undefined]);
             expect(_.deepPluck(array, ['level1', 'level2', 'level3', 0, 'value'])).toEqual(['value 3_1', 'value 3_2', 'value 3_3', undefined, undefined]);
+        });
+
+        it('should do a deep pluck on non-object properties', function(){
+            expect(_.deepPluck(array, 'level1.value.length')).toEqual([9, 9, 9, undefined, undefined]);
+            expect(_.deepPluck(array, 'level1.level2.value.length')).toEqual([9, 9, 9, undefined, undefined]);
+            expect(_.deepPluck(array, 'level1.level2.level3.0.value.length')).toEqual([9, 9, 9, undefined, undefined]);
+            expect(_.deepPluck(array, ['level1', 'level2', 'level3', 0, 'value', 'length'])).toEqual([9, 9, 9, undefined, undefined]);
         });
     });
 

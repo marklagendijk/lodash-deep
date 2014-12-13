@@ -30,7 +30,8 @@
             var properties = getProperties(propertyPath);
             for(var i = 0; i < properties.length; i++){
                 var property = properties[i];
-                if(_.isObject(collection) && property in collection){
+                if(_.has(collection, property) ||
+                   _.isObject(collection) && property in collection){
                     collection = collection[property];
                 }
                 else{
@@ -50,7 +51,7 @@
             var properties = getProperties(propertyPath);
             for(var i = 0; i < properties.length; i++){
                 var property = properties[i];
-                if(_.isObject(collection) && collection.hasOwnProperty(property)){
+                if(_.has(collection, property)){
                     collection = collection[property];
                 }
                 else{

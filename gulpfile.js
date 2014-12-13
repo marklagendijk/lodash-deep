@@ -10,7 +10,7 @@ gulp.task("test-browser", ["minify"], function(callback){
     }, callback);
 });
 
-gulp.task("test-node", function(){
+gulp.task("test-node", ["minify"], function(){
     return gulp.src('test/*')
         .pipe(jasmine());
 });
