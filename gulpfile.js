@@ -18,7 +18,7 @@ gulp.task("test-node", ["minify"], function(){
 gulp.task("test", ["test-browser", "test-node"]);
 
 gulp.task("minify", function(){
-    gulp.src("lodash-deep.js")
+    return gulp.src("lodash-deep.js")
         .pipe(uglify())
         .pipe(rename("lodash-deep.min.js"))
         .pipe(gulp.dest("./"));
