@@ -163,7 +163,7 @@
         deepEscapePropertyName: function(propertyName){
             return propertyName
                 .replace(/\\/g, '\\\\')
-                .replace(/\./g, '\\.');
+                .replace(/(\.|\[|\])/g, '\\$1');
         },
         /**
          * Maps all values in an object tree and returns a new object with the same structure as the original.

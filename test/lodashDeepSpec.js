@@ -238,6 +238,10 @@ describe('lodash-deep mixins', function(){
         it('should escape dots and backslashes', function(){
             expect(_.deepEscapePropertyName('my.weird.property\\name')).toEqual('my\\.weird\\.property\\\\name');
         });
+
+        it('should escape left and right brackets', function(){
+            expect(_.deepEscapePropertyName('my[weird]propertyName')).toEqual('my\\[weird\\]propertyName');
+        });
     });
 
     describe('deepMapValues(object, callback)', function(){
