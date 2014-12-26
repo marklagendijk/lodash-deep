@@ -37,22 +37,36 @@ The following mixins are included in `lodash-deep`:
 - [_.deepMapValues](#_deepmapvaluesobject-propertypath)
 
 ### propertyPath
-Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s). Array indices can also be used as property name.
-The propertyPath can be specified as either `string` or `Array`. When it is specified as string the `.` is used as separator between the different levels. Because of this all `.` and `\` characters of property names in a string based propertyPath have to be escaped by a `\`. The helper method `_.deepEscapePropertyName` is available for this purpose.
+Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s) and can be either a single `string` or an `array`.
 
-``` javascript
-	// Simple property path
-	// { level1: { level2: { level3: [ 'value' ] }}}
-	var pathString = 'level1.level2.level3.0'; // as string
-	var pathArray = ['level1', 'level2', 'level3', 0]; // as array
+**When an array is specified**, each value should be a property name or array index and there is no need to escape special characters.
 
-	// Property path with '.' and '\'
-	// { 'lev.el1': { 'lev\\el2': { level3: [ 'value' ] }}}
-	var path2String = 'lev\\.el1.lev\\\\el2.level3.0'; // as manually escaped string
-	var path2StringAlt = _.deepEscapePropertyName('lev.el1') + '.' + _.deepEscapePropertyName('lev\\el2') + '.level3.0'; // as programmatically escaped string
-	var path2Array = ['lev.el1', 'lev\\el2', 'level3', 0]; // as array (just the plain names, you never have to escape anything when using the array syntax.
+```javascript
+var obj = { level1: { 'lev\\el2': { 'lev.el3': { 'level4]': [ 'value' ] }}}};
+var path2Value = ['level1', 'lev\\el2', 'lev.el3', 'level4]', '0'];
 ```
 
+**When a string is specified**, it is split on unescaped `.`, `[` and `]` characters to create an array of property names. If a property name contains one of these characters, it must be escaped with a `\` (which must be typed as `\\` in a string literal). The helper method `_.deepEscapePropertyName` is provided to assist with this.
+
+```javascript
+// basic property names
+var obj = { level1: { level2: [ 'value' ] }};
+var path2Value = 'level1.level2[0]';
+```
+
+```javascript
+// complex property names
+var obj = { 'lev.el1': { 'lev\\el2': { `lev[e]l3`: [ 'value' ] }}}
+
+// using a manually escaped string
+var path2Value = 'lev\\.el1.lev\\\\el2.lev\\[e\\]l3[0]';
+
+// using a programatically escaped string
+var path2Value =
+    _.deepEscapePropertyName('lev.el1') + '.' +
+    _.deepEscapePropertyName('lev\\el2') + '.' +
+    _.deepEscapePropertyName('lev\\[e\\]l3') + '[' + 0 + ']';
+```
 
 ### _.deepSet(collection, propertyPath, value)
 Sets a value of a property in an object tree. Any missing objects/arrays will be created.
@@ -103,14 +117,14 @@ The value, or undefined if it doesn't exists.
 
 ``` javascript
 var object = {
-	level1: {
-		value: 'value 1',
-		level2: Object.create({
-			level3: {
-				value: 'value 3'
-			}
-		})
-	}
+    level1: {
+        value: 'value 1',
+        level2: Object.create({
+            level3: {
+                value: 'value 3'
+            }
+        })
+    }
 };
 _.deepGet(object, 'level1.value');
 // -> 'value 1'
@@ -140,14 +154,14 @@ The value, or undefined if it doesn't exists.
 
 ``` javascript
 var object = {
-	level1: {
-		value: 'value 1',
-		level2: Object.create({
-			level3: {
-				value: 'value 3'
-			}
-		})
-	}
+    level1: {
+        value: 'value 1',
+        level2: Object.create({
+            level3: {
+                value: 'value 3'
+            }
+        })
+    }
 };
 _.deepOwn(object, 'level1.value');
 // -> 'value 1'
@@ -175,12 +189,12 @@ Type: `Array`
 
 ``` javascript
 var collection = [
-	{ level1: { level2: { level3: { value: 1 }}}},
-	{ level1: { level2: { level3: { value: 2 }}}},
-	{ level1: { level2: { level3: { value: 3 }}}},
-	{ level1: { level2: { level3: { value: 4 }}}},
-	{ level1: { level2: {} }},
-	{}
+    { level1: { level2: { level3: { value: 1 }}}},
+    { level1: { level2: { level3: { value: 2 }}}},
+    { level1: { level2: { level3: { value: 3 }}}},
+    { level1: { level2: { level3: { value: 4 }}}},
+    { level1: { level2: {} }},
+    {}
 ];
 _.deepPluck(collection, 'level1.level2.level3.value');
 // -> [ 1, 2, 3, 4, undefined, undefined ]
@@ -204,13 +218,13 @@ Type: `boolean`
 
 ``` javascript
 var object = {
-	level1: {
-		level2: Object.create({
-			level3: {
-				value: 'value 3'
-			}
-		})
-	}
+    level1: {
+        level2: Object.create({
+            level3: {
+                value: 'value 3'
+            }
+        })
+    }
 };
 _.deepIn(object, 'level1');
 // -> true
@@ -240,13 +254,13 @@ Type: `boolean`
 
 ``` javascript
 var object = {
-	level1: {
-		level2: Object.create({
-			level3: {
-				value: 'value 3'
-			}
-		})
-	}
+    level1: {
+        level2: Object.create({
+            level3: {
+                value: 'value 3'
+            }
+        })
+    }
 };
 _.deepHas(object, 'level1');
 // -> true
@@ -351,33 +365,33 @@ Type: `Object`
 
 ``` javascript
 var object = {
-	level1: {
-		value: 'value 1'
-		level2: {
-			value: 'value 2'
-			level3: {
-				value: 'value 3'
-			}
-		}
-	}
+    level1: {
+        value: 'value 1'
+        level2: {
+            value: 'value 2'
+            level3: {
+                value: 'value 3'
+            }
+        }
+    }
 };
 
 _.deepMapValues(object, function(value, propertyPath){
-	return (propertyPath.join('.') + ' is ' + value)
+    return (propertyPath.join('.') + ' is ' + value)
 });
 
 /** ->
- *	{
- *		level1: {
- *			value: 'level1.value is value 1'
- *			level2: {
- *				value: 'level1.level2.value is value 2'
- *				level3: {
- *					value: 'level1.level2.level3.value is value 3'
- *				}
- *			}
- *		}
- *	};
+ *    {
+ *        level1: {
+ *            value: 'level1.value is value 1'
+ *            level2: {
+ *                value: 'level1.level2.value is value 2'
+ *                level3: {
+ *                    value: 'level1.level2.level3.value is value 3'
+ *                }
+ *            }
+ *        }
+ *    };
  */
 ```
 
