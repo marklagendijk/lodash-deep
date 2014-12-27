@@ -10,7 +10,7 @@ gulp.task("test-browser", ["minify"], function(callback){
     }, callback);
 });
 
-gulp.task("test-node", function(){
+gulp.task("test-node", ["minify"], function(){
     return gulp.src('test/*')
         .pipe(jasmine());
 });
@@ -18,7 +18,7 @@ gulp.task("test-node", function(){
 gulp.task("test", ["test-browser", "test-node"]);
 
 gulp.task("minify", function(){
-    gulp.src("lodash-deep.js")
+    return gulp.src("lodash-deep.js")
         .pipe(uglify())
         .pipe(rename("lodash-deep.min.js"))
         .pipe(gulp.dest("./"));

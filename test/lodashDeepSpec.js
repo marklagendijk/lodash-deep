@@ -1,4 +1,4 @@
-/* globals: require, beforeEach, describe, it, module, inject, expect */
+/* globals: require, beforeEach, describe, it, module, inject, expect, spyOn */
 describe('lodash-deep mixins', function(){
     'use strict';
     var isNode, _, object, array, objectWithFunc, thisArg;
@@ -11,20 +11,48 @@ describe('lodash-deep mixins', function(){
         _ = window._;
     }
 
-
     beforeEach(function(){
+        // set up an inherited property
         object = {
-            level1: {
-                value: 'value 1',
-                level2: Object.create({
-                    level3: [
-                        {
-                            value: 'value 3'
-                        }
-                    ]
-                })
+          inheritedLevel1: {
+            value: 'inherited value 1',
+            level2: {
+              value: 'inherited value 2'
             }
+          }
         };
+
+        object = Object.create(object);
+
+        object.level1 = {
+            value: 'value 1',
+            level2: {}
+        }
+
+        // set up an enumerable and a non-enumerable own property
+        Object.defineProperties(object.level1.level2, {
+            ownEnumLevel3: {
+                configurable: true,
+                enumerable: true,
+                writable: true,
+                value: [
+                    {
+                        value: 'own enumerable value 3'
+                    }
+                ]
+            },
+            ownNonEnumLevel3: {
+                configurable: true,
+                enumerable: false,
+                writable: true,
+                value: [
+                    {
+                        value: 'own non-enumerable value 3'
+                    }
+                ]
+            }
+        });
+
         object.level1.level2.value = 'value 2';
 
         array = [
@@ -102,33 +130,59 @@ describe('lodash-deep mixins', function(){
             expect(_.deepIn(object, 'level1.value')).toBe(true);
             expect(_.deepIn(object, 'level1.level2')).toBe(true);
             expect(_.deepIn(object, 'level1.level2.value')).toBe(true);
-            expect(_.deepIn(object, 'level1.level2.level3.0')).toBe(true);
-            expect(_.deepIn(object, 'level1.level2.level3.0.value')).toBe(true);
-            expect(_.deepIn(object, ['level1', 'level2', 'level3', 0, 'value'])).toBe(true);
+
+            expect(_.deepIn(object, 'level1.level2.ownEnumLevel3.0')).toBe(true);
+            expect(_.deepIn(object, 'level1.level2.ownEnumLevel3.0.value')).toBe(true);
+
+            expect(_.deepIn(object, 'level1.level2.ownNonEnumLevel3.0')).toBe(true);
+            expect(_.deepIn(object, 'level1.level2.ownNonEnumLevel3.0.value')).toBe(true);
+
+            expect(_.deepIn(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'value'])).toBe(true);
+            expect(_.deepIn(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'value'])).toBe(true);
 
             expect(_.deepIn(object, 'blah')).toBe(false);
             expect(_.deepIn(object, 'level1.blah')).toBe(false);
-            expect(_.deepIn(object, 'level1.level2.level3.0.blah')).toBe(false);
-            expect(_.deepIn(object, 'level1.level2.level3.0.blah')).toBe(false);
-            expect(_.deepIn(object, ['level1', 'level2', 'level3', 0, 'blah'])).toBe(false);
+
+            expect(_.deepIn(object, 'level1.level2.ownEnumLevel3.0.blah')).toBe(false);
+            expect(_.deepIn(object, 'level1.level2.ownEnumLevel3.0.blah')).toBe(false);
+            expect(_.deepIn(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'blah'])).toBe(false);
+
+            expect(_.deepIn(object, 'level1.level2.ownNonEnumLevel3.0.blah')).toBe(false);
+            expect(_.deepIn(object, 'level1.level2.ownNonEnumLevel3.0.blah')).toBe(false);
+            expect(_.deepIn(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'blah'])).toBe(false);
         });
     });
 
     describe('deepHas(collection, propertyPath)', function(){
-        it('should return whether a value exist in an object tree, as own value, for the specified property path.', function(){
+        it('should return whether a value exists in an object tree, as own value, for the specified property path.', function(){
             expect(_.deepHas(object, 'level1')).toBe(true);
             expect(_.deepHas(object, 'level1.value')).toBe(true);
             expect(_.deepHas(object, 'level1.level2')).toBe(true);
             expect(_.deepHas(object, 'level1.level2.value')).toBe(true);
 
-            expect(_.deepHas(object, 'level1.level2.level3.0')).toBe(false);
-            expect(_.deepHas(object, 'level1.level2.level3.0.value')).toBe(false);
-            expect(_.deepHas(object, ['level1', 'level2', 'level3', 0, 'value'])).toBe(false);
+            expect(_.deepHas(object, 'level1.value.length')).toBe(true);
+            expect(_.deepHas(object, 'level1.level2.value.length')).toBe(true);
+
+            expect(_.deepHas(object, 'level1.level2.ownEnumLevel3.0')).toBe(true);
+            expect(_.deepHas(object, 'level1.level2.ownEnumLevel3.0.value')).toBe(true);
+            expect(_.deepHas(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'value'])).toBe(true);
+
+            expect(_.deepHas(object, 'level1.level2.ownNonEnumLevel3.0')).toBe(true);
+            expect(_.deepHas(object, 'level1.level2.ownNonEnumLevel3.0.value')).toBe(true);
+            expect(_.deepHas(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'value'])).toBe(true);
+
+            expect(_.deepHas(object, 'inheritedLevel1.level2')).toBe(false);
+            expect(_.deepHas(object, 'inheritedLevel1.level2.value')).toBe(false);
+            expect(_.deepHas(object, ['inheritedLevel1', 'level2', 'value'])).toBe(false);
 
             expect(_.deepHas(object, 'blah')).toBe(false);
             expect(_.deepHas(object, 'level1.blah')).toBe(false);
-            expect(_.deepHas(object, 'level1.level2.level3.0.blah')).toBe(false);
-            expect(_.deepHas(object, ['level1', 'level2', 'level3', 0, 'blah'])).toBe(false);
+
+            expect(_.deepHas(object, 'level1.level2.ownEnumLevel3.0.blah')).toBe(false);
+            expect(_.deepHas(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'blah'])).toBe(false);
+
+            expect(_.deepHas(object, 'level1.level2.ownNonEnumLevel3.0.blah')).toBe(false);
+            expect(_.deepHas(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'blah'])).toBe(false);
         });
     });
 
@@ -138,9 +192,18 @@ describe('lodash-deep mixins', function(){
             expect(_.deepGet(object, 'level1.value')).toBe('value 1');
             expect(_.isObject(_.deepGet(object, 'level1.level2'))).toBe(true);
             expect(_.deepGet(object, 'level1.level2.value')).toBe('value 2');
-            expect(_.isObject(_.deepGet(object, 'level1.level2.level3.0'))).toBe(true);
-            expect(_.deepGet(object, 'level1.level2.level3.0.value')).toBe('value 3');
-            expect(_.deepGet(object, ['level1', 'level2', 'level3', 0, 'value'])).toBe('value 3');
+
+            expect(_.isObject(_.deepGet(object, 'level1.level2.ownEnumLevel3.0'))).toBe(true);
+            expect(_.isObject(_.deepGet(object, 'level1.level2.ownNonEnumLevel3.0'))).toBe(true);
+
+            expect(_.deepGet(object, 'level1.level2.ownEnumLevel3.0.value')).toBe('own enumerable value 3');
+            expect(_.deepGet(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'value'])).toBe('own enumerable value 3');
+
+            expect(_.deepGet(object, 'level1.level2.ownNonEnumLevel3.0.value')).toBe('own non-enumerable value 3');
+            expect(_.deepGet(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'value'])).toBe('own non-enumerable value 3');
+
+            expect(_.deepGet(object, 'inheritedLevel1.level2.value')).toBe('inherited value 2');
+            expect(_.deepGet(object, ['inheritedLevel1', 'level2', 'value'])).toBe('inherited value 2');
 
             expect(_.deepGet(object, 'blah')).toBeUndefined();
             expect(_.deepGet(object, 'level1.blah')).toBeUndefined();
@@ -156,9 +219,17 @@ describe('lodash-deep mixins', function(){
             expect(_.isObject(_.deepOwn(object, 'level1.level2'))).toBe(true);
             expect(_.deepOwn(object, 'level1.level2.value')).toBe('value 2');
 
-            expect(_.deepOwn(object, 'level1.level2.level3')).toBeUndefined();
-            expect(_.deepOwn(object, 'level1.level2.level3.0.value')).toBeUndefined();
-            expect(_.deepOwn(object, ['level1', 'level2', 'level3', 0, 'value'])).toBeUndefined();
+            expect(_.deepOwn(object, 'level1.level2.ownEnumLevel3')).toEqual([{value: 'own enumerable value 3'}]);
+            expect(_.deepOwn(object, 'level1.level2.ownEnumLevel3.0.value')).toBe('own enumerable value 3');
+            expect(_.deepOwn(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'value'])).toBe('own enumerable value 3');
+
+            expect(_.deepOwn(object, 'level1.level2.ownNonEnumLevel3')).toEqual([{value: 'own non-enumerable value 3'}]);
+            expect(_.deepOwn(object, 'level1.level2.ownNonEnumLevel3.0.value')).toBe('own non-enumerable value 3');
+            expect(_.deepOwn(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'value'])).toBe('own non-enumerable value 3');
+
+            expect(_.deepOwn(object, 'inheritedLevel1.level2')).toBeUndefined();
+            expect(_.deepOwn(object, 'inheritedLevel1.level2.value')).toBeUndefined();
+            expect(_.deepOwn(object, ['inheritedLevel1', 'level2', 'value'])).toBeUndefined();
 
             expect(_.deepOwn(object, 'blah')).toBeUndefined();
             expect(_.deepOwn(object, 'level1.blah')).toBeUndefined();
@@ -172,14 +243,20 @@ describe('lodash-deep mixins', function(){
             expect(object.level1.foo).toBe('bar');
             _.deepSet(object, 'level1.level2.foo', 'bar');
             expect(object.level1.level2.foo).toBe('bar');
-            _.deepSet(object, ['level1', 'level2', 'level3', 0, 'foo'], 'bar');
-            expect(object.level1.level2.level3[0].foo).toBe('bar');
+            _.deepSet(object, ['level1', 'level2', 'ownEnumLevel3', 0, 'foo'], 'bar');
+            expect(object.level1.level2.ownEnumLevel3[0].foo).toBe('bar');
+            _.deepSet(object, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'foo'], 'bar');
+            expect(object.level1.level2.ownNonEnumLevel3[0].foo).toBe('bar');
         });
 
         it('should create any missing objects or arrays', function(){
-            _.deepSet(object, 'level1.level2.level3.level4.level5.5.level6.foo', 'bar');
-            expect(_.isArray(object.level1.level2.level3.level4.level5)).toBe(true);
-            expect(object.level1.level2.level3.level4.level5[5].level6.foo).toBe('bar');
+            _.deepSet(object, 'level1.level2.ownEnumLevel3.level4.level5.5.level6.foo', 'bar');
+            expect(_.isArray(object.level1.level2.ownEnumLevel3.level4.level5)).toBe(true);
+            expect(object.level1.level2.ownEnumLevel3.level4.level5[5].level6.foo).toBe('bar');
+
+            _.deepSet(object, 'level1.level2.ownNonEnumLevel3.level4.level5.5.level6.foo', 'bar');
+            expect(_.isArray(object.level1.level2.ownNonEnumLevel3.level4.level5)).toBe(true);
+            expect(object.level1.level2.ownNonEnumLevel3.level4.level5[5].level6.foo).toBe('bar');
         });
     });
 
@@ -189,6 +266,13 @@ describe('lodash-deep mixins', function(){
             expect(_.deepPluck(array, 'level1.level2.value')).toEqual(['value 2_1', 'value 2_2', 'value 2_3', undefined, undefined]);
             expect(_.deepPluck(array, 'level1.level2.level3.0.value')).toEqual(['value 3_1', 'value 3_2', 'value 3_3', undefined, undefined]);
             expect(_.deepPluck(array, ['level1', 'level2', 'level3', 0, 'value'])).toEqual(['value 3_1', 'value 3_2', 'value 3_3', undefined, undefined]);
+        });
+
+        it('should do a deep pluck on non-object properties', function(){
+            expect(_.deepPluck(array, 'level1.value.length')).toEqual([9, 9, 9, undefined, undefined]);
+            expect(_.deepPluck(array, 'level1.level2.value.length')).toEqual([9, 9, 9, undefined, undefined]);
+            expect(_.deepPluck(array, 'level1.level2.level3.0.value.length')).toEqual([9, 9, 9, undefined, undefined]);
+            expect(_.deepPluck(array, ['level1', 'level2', 'level3', 0, 'value', 'length'])).toEqual([9, 9, 9, undefined, undefined]);
         });
     });
 
@@ -245,21 +329,50 @@ describe('lodash-deep mixins', function(){
     });
 
     describe('deepMapValues(object, callback)', function(){
+        it('should not modify the original object', function(){
+          var settings = {
+            a: "{{key}}",
+            b: {
+              c: {
+                d: ['{{key}}']
+              }
+            }
+          };
+
+          _.deepMapValues(settings, function(v){
+            if (_.isString(v) && v.indexOf('{{') > -1){
+              return v.replace(/\{\{(.*?)\}\}/g, function(str, key){
+                return key;
+              });
+            }
+
+            return v;
+          });
+
+          expect(settings.b.c.d).toEqual(['{{key}}']);
+        });
+
         it('should map all values in an object', function(){
-            var mappedObject = _.deepMapValues(object, function(value){ return 'foo ' + value + ' bar'; });
+            var mappedObject = _.deepMapValues(object, function(value){
+              return 'foo ' + value + ' bar';
+            });
             expect(_.deepGet(mappedObject, 'level1.value')).toEqual('foo value 1 bar');
             expect(_.deepGet(mappedObject, 'level1.level2.value')).toEqual('foo value 2 bar');
         });
 
         it('should copy, not map, prototype values', function(){
-            var mappedObject = _.deepMapValues(object, function(value){ return 'foo ' + value + ' bar'; });
-            expect(_.deepGet(mappedObject, ['level1', 'level2', 'level3', 0, 'value'])).toEqual('value 3');
-        });
-    });
+            var mappedObject = _.deepMapValues(object, function(value){
+              return 'foo ' + value + ' bar';
+            });
 
-    describe('deepMapValues(object, callback)', function(){
+            expect(_.deepGet(mappedObject, ['level1', 'level2', 'ownNonEnumLevel3', 0, 'value'])).toBeUndefined();
+            expect(_.deepGet(mappedObject, ['level1', 'level2', 'ownEnumLevel3', 0, 'value'])).toEqual('foo own enumerable value 3 bar');
+        });
+
         it('should provide the current property path (as array) to the callback function', function(){
-            var mappedObject = _.deepMapValues(object, function(value, path){ return (path.join('.') + ' is ' + value); });
+            var mappedObject = _.deepMapValues(object, function(value, path){
+              return (path.join('.') + ' is ' + value);
+            });
             expect(_.deepGet(mappedObject, 'level1.value')).toEqual('level1.value is value 1');
             expect(_.deepGet(mappedObject, 'level1.level2.value')).toEqual('level1.level2.value is value 2');
         });
