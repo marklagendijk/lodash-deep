@@ -56,7 +56,7 @@ var path2Value = 'level1.level2[0]';
 
 ```javascript
 // complex property names
-var obj = { 'lev.el1': { 'lev\\el2': { `lev[e]l3`: [ 'value' ] }}}
+var obj = { 'lev.el1': { 'lev\\el2': { `lev[e]l3`: [ 'value' ] }}};
 
 // using a manually escaped string
 var path2Value = 'lev\\.el1.lev\\\\el2.lev\\[e\\]l3[0]';
@@ -65,7 +65,7 @@ var path2Value = 'lev\\.el1.lev\\\\el2.lev\\[e\\]l3[0]';
 var path2Value =
     _.deepEscapePropertyName('lev.el1') + '.' +
     _.deepEscapePropertyName('lev\\el2') + '.' +
-    _.deepEscapePropertyName('lev\\[e\\]l3') + '[' + 0 + ']';
+    _.deepEscapePropertyName('lev[e]l3') + '[' + 0 + ']';
 ```
 
 ### _.deepSet(collection, propertyPath, value)
