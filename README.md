@@ -406,6 +406,8 @@ Please use the `canary` branch when creating a pull request.
 - [Andrew Luetgers](https://github.com/andrewluetgers)
 - [Nelson Pecora](https://github.com/yoshokatana)
 - [Mark Battersby](https://github.com/markalfred)
+- [Beau Gunderson](https://github.com/beaugunderson)
+- [Spencer](https://github.com/spenceralger)
 
 [bower-url]: https://github.com/marklagendijk/lodash-deep/releases/latest
 [bower-image]: https://badge.fury.io/bo/lodash-deep.svg
