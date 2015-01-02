@@ -35,6 +35,30 @@ The following mixins are included in `lodash-deep`:
 - [_.deepCall](#_deepcallcollection-propertypath-thisarg-arg)
 - [_.deepApply](#_deepapplycollection-propertypath-thisarg-args)
 - [_.deepMapValues](#_deepmapvaluesobject-propertypath)
+- [_.deepFindIndex](#_deeppluckstylecollection-propertypath)
+- [_.deepFindLastIndex](#_deeppluckstylecollection-propertypath)
+- [_.deepFirst](#_deeppluckstylecollection-propertypath)
+- [_.deepFlatten](#_deeppluckstylecollection-propertypath)
+- [_.deepInitial](#_deeppluckstylecollection-propertypath)
+- [_.deepLast](#_deeppluckstylecollection-propertypath)
+- [_.deepLastIndexOf](#_deeppluckstylecollection-propertypath)
+- [_.deepRemove](#_deeppluckstylecollection-propertypath)
+- [_.deepRest](#_deeppluckstylecollection-propertypath)
+- [_.deepSortedIndex](#_deeppluckstylecollection-propertypath)
+- [_.deepUniq](#_deeppluckstylecollection-propertypath)
+- [_.deepCountBy](#_deeppluckstylecollection-propertypath)
+- [_.deepEvery](#_deeppluckstylecollection-propertypath)
+- [_.deepFilter](#_deeppluckstylecollection-propertypath)
+- [_.deepFind](#_deeppluckstylecollection-propertypath)
+- [_.deepGroupBy](#_deeppluckstylecollection-propertypath)
+- [_.deepIndexBy](#_deeppluckstylecollection-propertypath)
+- [_.deepMax](#_deeppluckstylecollection-propertypath)
+- [_.deepMin](#_deeppluckstylecollection-propertypath)
+- [_.deepReject](#_deeppluckstylecollection-propertypath)
+- [_.deepSome](#_deeppluckstylecollection-propertypath)
+- [_.deepSortBy](#_deeppluckstylecollection-propertypath)
+- [_.deepFindKey](#_deeppluckstylecollection-propertypath)
+- [_.deepFindLastKey](#_deeppluckstylecollection-propertypath)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s) and can be either a single `string` or an `array`.
@@ -393,6 +417,41 @@ _.deepMapValues(object, function(value, propertyPath){
  *        }
  *    };
  */
+```
+
+### _.deepPluckStyle(collection, propertyPath)
+Collection of shorthand functions for executing a non-deep Lodash function with a "_.deepPluck" style callback.
+
+#### collection
+Type: `Object|Array`
+
+The collection of object trees.
+
+#### propertyPath
+Type: `string|Array`
+
+The [propertyPath](#propertypath).
+
+#### returns
+Type: `*`
+
+The result of calling the original Lodash function with a "_.deepPluck" style callback.
+
+``` javascript
+var collection = [
+    { level1: { level2: { level3: { value: 1 }}}},
+    { level1: { level2: { level3: { value: 2 }}}},
+    { level1: { level2: { level3: { value: 3 }}}},
+    { level1: { level2: { level3: { value: 4 }}}},
+    { level1: { level2: {} }},
+    {}
+];
+_.deepMax(collection, 'level1.level2.level3.value');
+// -> { level1: { level2: { level3: { value: 4 }}}}
+// === shorthand for
+_.max(collection, function(item){
+    return _.deepGet(item, 'level1.level2.level3.value');
+});
 ```
 
 ### Function name change
