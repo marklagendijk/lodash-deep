@@ -420,7 +420,31 @@ _.deepMapValues(object, function(value, propertyPath){
 ```
 
 ### _.deepPluckStyle(collection, propertyPath)
-Collection of shorthand functions for executing a non-deep Lodash function with a "_.deepPluck" style callback.
+Collection of shorthand functions for executing a non-deep Lodash function with a "_.deepPluck" style callback:
+- _.deepFindIndex
+- _.deepFindLastIndex
+- _.deepFirst
+- _.deepFlatten
+- _.deepInitial
+- _.deepLast
+- _.deepLastIndexOf
+- _.deepRemove
+- _.deepRest
+- _.deepSortedIndex
+- _.deepUniq
+- _.deepCountBy
+- _.deepEvery
+- _.deepFilter
+- _.deepFind
+- _.deepGroupBy
+- _.deepIndexBy
+- _.deepMax
+- _.deepMin
+- _.deepReject
+- _.deepSome
+- _.deepSortBy
+- _.deepFindKey
+- _.deepFindLastKey
 
 #### collection
 Type: `Object|Array`
