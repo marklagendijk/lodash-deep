@@ -331,10 +331,10 @@ describe('lodash-deep mixins', function(){
     describe('deepMapValues(object, callback)', function(){
         it('should not modify the original object', function(){
             var settings = {
-                a: "{{key}}",
+                a: '{{key}}',
                 b: {
                     c: {
-                        d: ['{{key}}']
+                        d: [ '{{key}}' ]
                     }
                 }
             };
@@ -375,6 +375,31 @@ describe('lodash-deep mixins', function(){
             });
             expect(_.deepGet(mappedObject, 'level1.value')).toEqual('level1.value is value 1');
             expect(_.deepGet(mappedObject, 'level1.level2.value')).toEqual('level1.level2.value is value 2');
+        });
+
+        it('should work with collections', function (){
+            var deepArrayTest = {
+                a: {
+                    b: [
+                        {
+                            c: {
+                                d: '{{key}}'
+                            }
+                        },
+                        {
+                            d: '{{key}}'
+                        }
+                    ]
+                }
+            };
+
+            var mappedObject = _.deepMapValues(deepArrayTest, function(value) {
+                return value + 'test';
+            });
+
+            expect(mappedObject.a.b instanceof Array).toBe(true);
+            expect(mappedObject.a.b[ 1 ].d).toEqual(deepArrayTest.a.b[ 1 ].d + 'test');
+            expect(mappedObject.a.b[ 0 ].c.d).toEqual(deepArrayTest.a.b[ 0 ].c.d + 'test');
         });
     });
 
