@@ -59,7 +59,7 @@ The following mixins are included in `lodash-deep`:
 - [_.deepSortBy](#_deeppluckstylecollection-propertypath)
 - [_.deepFindKey](#_deeppluckstylecollection-propertypath)
 - [_.deepFindLastKey](#_deeppluckstylecollection-propertypath)
-- [_.deepStringifyPropertyPath](#_.deepstringifypropertypath-propertyarray)
+- [_.deepStringifyProperty](#_deepstringifyproperty-propertyarray)
 - [_.deepGetProperties](#_deepgetproperties-propertypath)
 - [_.deepParseStringPropertyPath](#_deepparsestringpropertypath-propertystring)
 
@@ -480,7 +480,7 @@ _.max(collection, function(item){
     return _.deepGet(item, 'level1.level2.level3.value');
 });
 ```
-### _.deepStringifyPropertyPath(propertyPath)
+### _.deepStringifyProperty(propertyArray)
 Converts a Property path Array into a string.
 Each element represents one *unescaped* part. (`['a','b','c']` -> `a.b.c`)
 
@@ -504,10 +504,7 @@ Same as [deepGetProperties](#deep-get-properties) but does not accept an Array a
 
 the property path as `Array`, containing unescaped path components.
 
-- [_.deepStringifyPropertyPath](#stringify-property-path)
-- [_.deepGetProperties](#get-properties)
-- [_.deepParseStringPropertyPath](#parse-string-property-path)
-- 
+
 
 
 ### Function name change
