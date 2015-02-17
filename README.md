@@ -490,8 +490,10 @@ Each element represents one *unescaped* part. (`['a','b','c']` -> `a.b.c`)
 
 
 ### _.deepGetProperties(propertyPath)
-#### propertyPath `String` (containing escaped path parts)or `Array` (containing unescaped path parts) propertyPath
-#### returns the property path as `Array`, containing unescaped path components.
+#### propertyPath 
+`String` (containing escaped path parts)or `Array` (containing unescaped path parts) propertyPath
+#### returns 
+the property path as `Array`, containing unescaped path components.
 
 
 ### _.deepParseStringPropertyPath(propertyString)
