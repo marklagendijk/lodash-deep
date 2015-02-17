@@ -59,9 +59,9 @@ The following mixins are included in `lodash-deep`:
 - [_.deepSortBy](#_deeppluckstylecollection-propertypath)
 - [_.deepFindKey](#_deeppluckstylecollection-propertypath)
 - [_.deepFindLastKey](#_deeppluckstylecollection-propertypath)
-- [_.deepStringifyPropertyPath](#_.deepstringifypropertypath)
-- [_.deepGetProperties](#_deepgetproperties)
-- [_.deepParseStringPropertyPath](#_deepparsestringpropertypath)
+- [_.deepStringifyPropertyPath](#_.deepstringifypropertypath-propertyarray)
+- [_.deepGetProperties](#_deepgetproperties-propertypath)
+- [_.deepParseStringPropertyPath](#_deepparsestringpropertypath-propertystring)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s) and can be either a single `string` or an `array`.
@@ -480,7 +480,7 @@ _.max(collection, function(item){
     return _.deepGet(item, 'level1.level2.level3.value');
 });
 ```
-### deepStringifyPropertyPath
+### _.deepStringifyPropertyPath(propertyPath)
 Converts a Property path Array into a string.
 Each element represents one *unescaped* part. (`['a','b','c']` -> `a.b.c`)
 
@@ -489,15 +489,20 @@ Each element represents one *unescaped* part. (`['a','b','c']` -> `a.b.c`)
 #### returns the stringified path
 
 
-### deepGetProperties
+### _.deepGetProperties(propertyPath)
 #### propertyPath `String` (containing escaped path parts)or `Array` (containing unescaped path parts) propertyPath
 #### returns the property path as `Array`, containing unescaped path components.
 
 
-### deepParseStringPropertyPath
+### _.deepParseStringPropertyPath(propertyString)
 Same as [deepGetProperties](#deep-get-properties) but does not accept an Array as argument
-#### propertyPath `String` propertyPath
-#### returns the property path as `Array`, containing unescaped path components.
+#### propertyPath 
+
+`String` propertyPath
+
+#### returns 
+
+the property path as `Array`, containing unescaped path components.
 
 - [_.deepStringifyPropertyPath](#stringify-property-path)
 - [_.deepGetProperties](#get-properties)
