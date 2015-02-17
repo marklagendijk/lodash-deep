@@ -495,7 +495,7 @@ Each element represents one *unescaped* part. (`['a','b','c']` -> `a.b.c`)
 
 
 ### _.deepParseStringPropertyPath(propertyString)
-Same as [deepGetProperties](#deep-get-properties) but does not accept an Array as argument
+Same as [deepGetProperties](#_deepgetpropertiespropertypath) but does not accept an Array as argument
 #### propertyPath 
 
 `String` propertyPath
