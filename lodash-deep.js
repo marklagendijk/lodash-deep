@@ -456,12 +456,14 @@
      */
     mixins.deepParseStringProperty = parseStringPropertyPath
 
+
     /**
      * Computes the stringified property path of the given array of unescaped path components.
      * @param {Array|String} An Array of unescaped path components. If a String is supplied it just wraps
      *                       deepEscapePropertyName 
      * @returns {String} A string containing the escaped stringified components separated by '.'
      */
+
     mixins.deepStringifyProperty = function(propertyPath){
         if (_.isArray(propertyPath)){
             return propertyPath.map(function(property){return _.deepEscapePropertyName(property)}).join('.');
