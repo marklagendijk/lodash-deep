@@ -376,7 +376,7 @@
     mixins.deepGetValue = mixins.deepGet;
     mixins.deepGetOwnValue = mixins.deepOwn;
 
-    _.mixin(mixins);
+    
 
     /**
      * Returns the property path as array.
@@ -450,6 +450,34 @@
         parsedPropertyPath.push(parsedPropertyPathPart);
         return parsedPropertyPath;
     }
+
+    /**
+     * exports the parse functions as mixins
+     */
+    mixins.deepParseStringPropertyPath = parseStringPropertyPath
+
+    /**
+     * Computes the stringified property path of the given array of unescaped path components.
+     * @param {Array|String} An Array of unescaped path components. If a String is supplied it just wraps
+     *                       deepEscapePropertyName 
+     * @returns {String} A string containing the escaped stringified components separated by '.'
+     */
+    mixins.deepStringifyPropertyPath = function(propertyPath){
+        if (_.isArray(propertyPath)){
+            return propertyPath.map(function(property){return _.deepEscapePropertyName(property)}).join('.');
+        }
+        else if (_.isString(propertyPath)) {
+            return _.deepEscapePropertyName(propertyPath);
+        }
+    }
+
+    mixins.deepGetProperties=getProperties
+    
+    /**
+    *
+    */
+
+    _.mixin(mixins);
 
     /**
      * Creates a function which executes the originalFunction with a "_.deepPluck" style callback.
