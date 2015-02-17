@@ -67,14 +67,36 @@
          * Retrieves the value of a property in an object tree.
          * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string|Array} propertyPath - The propertyPath.
+         * @param {string|Array} defaultVal - set the property to this value if it does not exist
          * @returns {*} - The value, or undefined if it doesn't exists.
          */
-        deepGet: function(collection, propertyPath){
-            var properties = getProperties(propertyPath);
-            if(_.deepIn(collection, properties)){
-                return _.reduce(properties, function(object, property){
+        deepGet: function(collection, propertyPath, defaultVal){
+            var properties = getProperties(propertyPath),
+                f=undefined,
+                have_default = !_.isUndefined(defaultVal);
+            if (!have_default) {
+                f= function(object, property){      
                     return object[property];
-                }, collection);
+                }
+            }
+            else {
+                f= function(object, property, index, properties){      
+                    var ret = object[property];
+                    if (_.isUndefined(ret) && _.isObject(parent)){
+                            if (index == properties.length-1){
+                                return object[property] =  defaultVal
+
+                            } 
+                            else {
+
+                                return object[property] =  (properties[index+1] % 1 ===0)?[]:{};
+                            }
+                        } 
+                    return ret;
+                    }
+            }
+            if(have_default ||  _.deepIn(collection, properties)){
+                return _.reduce(properties, f, collection);
             }
         },
         /**
