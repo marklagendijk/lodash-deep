@@ -59,9 +59,9 @@ The following mixins are included in `lodash-deep`:
 - [_.deepSortBy](#_deeppluckstylecollection-propertypath)
 - [_.deepFindKey](#_deeppluckstylecollection-propertypath)
 - [_.deepFindLastKey](#_deeppluckstylecollection-propertypath)
-- [_.deepStringifyProperty](#_deepstringifyproperty-propertyarray)
-- [_.deepGetProperties](#_deepgetproperties-propertypath)
-- [_.deepParseStringPropertyPath](#_deepparsestringpropertypath-propertystring)
+- [_.deepStringifyProperty](#_deepstringifypropertypropertyarray)
+- [_.deepGetProperties](#_deepgetpropertiespropertypath)
+- [_.deepParseStringPropertyPath](#_deepparsestringpropertypathpropertystring)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s) and can be either a single `string` or an `array`.
