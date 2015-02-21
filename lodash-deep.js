@@ -107,7 +107,8 @@
                 }
                 else if(!_.isObject(currentObject[property])){
                     // Create the missing object or array
-                    currentObject[property] = properties[index + 1] % 1 === 0 ? [] : {};
+                    var prop= properties[index + 1];
+                    currentObject[property] = ( !_.isNull(prop) && prop % 1 === 0 ) ? [] : {};
                 }
                 currentObject = currentObject[property];
             });
