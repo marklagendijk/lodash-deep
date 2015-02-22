@@ -82,7 +82,7 @@
             else {
                 f= function(object, property, index, properties){      
                     var ret = object[property];
-                    if (_.isUndefined(ret) && _.isObject(parent)){
+                    if (_.isUndefined(ret) ){
                             if (index == properties.length-1){
                                 return object[property] =  defaultVal
 
