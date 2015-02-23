@@ -13,7 +13,7 @@ module.exports = function(karmaConfig){
 
         // list of files / patterns to load in the browser
         files: [
-            'bower_components/lodash/dist/lodash.compat.min.js',
+            'bower_components/lodash/lodash.min.js',
             'lodash-deep.min.js',
             'test/**/*.js'
         ],
