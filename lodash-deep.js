@@ -67,14 +67,36 @@
          * Retrieves the value of a property in an object tree.
          * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string|Array} propertyPath - The propertyPath.
+         * @param {string|Array} defaultVal - set the property to this value if it does not exist
          * @returns {*} - The value, or undefined if it doesn't exists.
          */
-        deepGet: function(collection, propertyPath){
-            var properties = getProperties(propertyPath);
-            if(_.deepIn(collection, properties)){
-                return _.reduce(properties, function(object, property){
+        deepGet: function(collection, propertyPath, defaultVal){
+            var properties = getProperties(propertyPath),
+                f=undefined,
+                have_default = !_.isUndefined(defaultVal);
+            if (!have_default) {
+                f= function(object, property){      
                     return object[property];
-                }, collection);
+                }
+            }
+            else {
+                f= function(object, property, index, properties){      
+                    var ret = object[property];
+                    if (_.isUndefined(ret) ){
+                            if (index == properties.length-1){
+                                return object[property] =  defaultVal
+
+                            } 
+                            else {
+
+                                return object[property] =  (properties[index+1] % 1 ===0)?[]:{};
+                            }
+                        } 
+                    return ret;
+                    }
+            }
+            if(have_default ||  _.deepIn(collection, properties)){
+                return _.reduce(properties, f, collection);
             }
         },
         /**
@@ -107,7 +129,8 @@
                 }
                 else if(!_.isObject(currentObject[property])){
                     // Create the missing object or array
-                    currentObject[property] = properties[index + 1] % 1 === 0 ? [] : {};
+                    var prop= properties[index + 1];
+                    currentObject[property] = ( !_.isNull(prop) && prop % 1 === 0 ) ? [] : {};
                 }
                 currentObject = currentObject[property];
             });
@@ -376,7 +399,7 @@
     mixins.deepGetValue = mixins.deepGet;
     mixins.deepGetOwnValue = mixins.deepOwn;
 
-    _.mixin(mixins);
+    
 
     /**
      * Returns the property path as array.
@@ -450,6 +473,36 @@
         parsedPropertyPath.push(parsedPropertyPathPart);
         return parsedPropertyPath;
     }
+
+    /**
+     * exports the parse functions as mixins
+     */
+    mixins.deepParseStringProperty = parseStringPropertyPath
+
+
+    /**
+     * Computes the stringified property path of the given array of unescaped path components.
+     * @param {Array|String} An Array of unescaped path components. If a String is supplied it just wraps
+     *                       deepEscapePropertyName 
+     * @returns {String} A string containing the escaped stringified components separated by '.'
+     */
+
+    mixins.deepStringifyProperty = function(propertyPath){
+        if (_.isArray(propertyPath)){
+            return propertyPath.map(function(property){return _.deepEscapePropertyName(property)}).join('.');
+        }
+        else if (_.isString(propertyPath)) {
+            return _.deepEscapePropertyName(propertyPath);
+        }
+    }
+
+    mixins.deepGetProperties=getProperties
+    
+    /**
+    *
+    */
+
+    _.mixin(mixins);
 
     /**
      * Creates a function which executes the originalFunction with a "_.deepPluck" style callback.

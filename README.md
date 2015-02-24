@@ -59,6 +59,9 @@ The following mixins are included in `lodash-deep`:
 - [_.deepSortBy](#_deeppluckstylecollection-propertypath)
 - [_.deepFindKey](#_deeppluckstylecollection-propertypath)
 - [_.deepFindLastKey](#_deeppluckstylecollection-propertypath)
+- [_.deepStringifyProperty](#_deepstringifypropertypropertyarray)
+- [_.deepGetProperties](#_deepgetpropertiespropertypath)
+- [_.deepParseStringPropertyPath](#_deepparsestringpropertypathpropertystring)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s) and can be either a single `string` or an `array`.
@@ -477,6 +480,34 @@ _.max(collection, function(item){
     return _.deepGet(item, 'level1.level2.level3.value');
 });
 ```
+### _.deepStringifyProperty(propertyArray)
+Converts a Property path Array into a string.
+Each element represents one *unescaped* part. (`['a','b','c']` -> `a.b.c`)
+
+#### propertyPath:
+    `Array` containing a property path.
+#### returns the stringified path
+
+
+### _.deepGetProperties(propertyPath)
+#### propertyPath 
+`String` (containing escaped path parts)or `Array` (containing unescaped path parts) propertyPath
+#### returns 
+the property path as `Array`, containing unescaped path components.
+
+
+### _.deepParseStringPropertyPath(propertyString)
+Same as [deepGetProperties](#_deepgetpropertiespropertypath) but does not accept an Array as argument
+#### propertyPath 
+
+`String` propertyPath
+
+#### returns 
+
+the property path as `Array`, containing unescaped path components.
+
+
+
 
 ### Function name change
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
