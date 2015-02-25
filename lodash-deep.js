@@ -106,8 +106,7 @@
                     currentObject[property] = value;
                 }
                 else if(!_.isObject(currentObject[property])){
-                    // Create the missing object or array
-                    currentObject[property] = _.isFinite(+properties[index + 1]) ? [] : {};
+                    currentObject[property] = isNaN(properties[index + 1]) ? {}: [];
                 }
                 currentObject = currentObject[property];
             });
