@@ -159,13 +159,18 @@
          */
         deepMapValues: function(object, callback, propertyPath){
             var properties = getProperties(propertyPath);
-            if(_.isObject(object) && !_.isDate(object) && !_.isRegExp(object)){
-                return _.extend({}, object, _.mapValues(object, function(value, key){
-                    return _.deepMapValues(value, callback, _.flatten([properties, key]));
-                }));
+            if(_.isArray(object)){
+                return _.map(object, deepMapValuesIteratee);
+            }
+            else if(_.isObject(object) && !_.isDate(object) && !_.isRegExp(object)){
+                return _.extend({}, object, _.mapValues(object, deepMapValuesIteratee));
             }
             else{
                 return callback(object, properties);
+            }
+
+            function deepMapValuesIteratee(value, key){
+                return _.deepMapValues(value, callback, _.flatten([properties, key]));
             }
         },
         /**
