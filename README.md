@@ -28,6 +28,7 @@ lodash-deep is currently compatible with:
 The following mixins are included in `lodash-deep`:
 - [_.deepSet](#_deepsetcollection-propertypath-value)
 - [_.deepGet](#_deepgetcollection-propertypath)
+- [_.deepDefault](#_deepdefaultcollection-propertypath-defaultvalue)
 - [_.deepOwn](#_deepowncollection-propertypath)
 - [_.deepPluck](#_deeppluckcollection-propertypath)
 - [_.deepIn](#_deepincollection-propertypath)
@@ -156,6 +157,40 @@ _.deepGet(object, 'level1.level2.level3.value');
 // -> 'value 3'
 _.deepGet(object, 'foo.bar.baz');
 // -> undefined
+```
+
+### _.deepDefault(collection, propertyPath, defaultValue)
+Checks if the value at the propertyPath resolves to undefined, and sets it to defaultValue if this is the case.
+#### collection
+Type: `Object|Array`
+
+The root object/array of the object tree.
+
+#### propertyPath
+Type: `string|Array`
+
+The [propertyPath](#propertypath).
+
+#### defaultValue
+Type: `*`
+
+The default value.
+
+#### returns
+Type: `*`
+
+Either the old value, or the new (default) value.
+
+``` javascript
+var object = {
+    some: {
+        property: 'someValue'
+    }
+};
+_.deepDefault(object, 'some.property', 'defaultValue');
+// -> 'someValue'
+_.deepDefault(object, 'some.non.existent.property', 'defaultValue');
+// -> 'defaultValue' (and object.some.non.existent.property === 'defaultValue')
 ```
 
 ### _.deepOwn(collection, propertyPath)

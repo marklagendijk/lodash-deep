@@ -64,20 +64,6 @@
             return true;
         },
         /**
-         * Retrieves the value of a property in an object tree.
-         * @param {Object|Array} collection - The root object/array of the tree.
-         * @param {string|Array} propertyPath - The propertyPath.
-         * @returns {*} - The value, or undefined if it doesn't exists.
-         */
-        deepGet: function(collection, propertyPath){
-            var properties = getProperties(propertyPath);
-            if(_.deepIn(collection, properties)){
-                return _.reduce(properties, function(object, property){
-                    return object[property];
-                }, collection);
-            }
-        },
-        /**
          * Retrieves the own value of a property in an object tree.
          * @param {Object|Array} collection - The root object/array of the tree.
          * @param {string|Array} propertyPath - The propertyPath.
@@ -86,6 +72,20 @@
         deepOwn: function(collection, propertyPath){
             var properties = getProperties(propertyPath);
             if(_.deepHas(collection, properties)){
+                return _.reduce(properties, function(object, property){
+                    return object[property];
+                }, collection);
+            }
+        },
+        /**
+         * Retrieves the value of a property in an object tree.
+         * @param {Object|Array} collection - The root object/array of the tree.
+         * @param {string|Array} propertyPath - The propertyPath.
+         * @returns {*} - The value, or undefined if it doesn't exists.
+         */
+        deepGet: function(collection, propertyPath){
+            var properties = getProperties(propertyPath);
+            if(_.deepIn(collection, properties)){
                 return _.reduce(properties, function(object, property){
                     return object[property];
                 }, collection);
@@ -112,6 +112,24 @@
             });
 
             return collection;
+        },
+        /**
+         * Checks if the value at the propertyPath resolves to undefined, and sets it to defaultValue if this is the
+         * case.
+         * @param {Object|Array} collection - The collection of object trees.
+         * @param {string|Array} propertyPath - The propertyPath of the function.
+         * @param {*} defaultValue - The default value.
+         * @returns {*} Either the old value, or the new (default) value.
+         */
+        deepDefault: function(collection, propertyPath, defaultValue){
+            var value = _.deepGet(collection, propertyPath);
+            if(_.isUndefined(value)){
+                _.deepSet(collection, propertyPath, defaultValue);
+                return defaultValue;
+            }
+            else{
+                return value;
+            }
         },
         /**
          * Calls a function located at the specified property path, if it exists.
