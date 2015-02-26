@@ -179,7 +179,7 @@ The default value.
 #### returns
 Type: `*`
 
-Either the old value, or the new (default) value.
+Either the existing, unchanged value, or the new (default) value.
 
 ``` javascript
 var object = {

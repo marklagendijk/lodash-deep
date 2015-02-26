@@ -119,7 +119,7 @@
          * @param {Object|Array} collection - The collection of object trees.
          * @param {string|Array} propertyPath - The propertyPath of the function.
          * @param {*} defaultValue - The default value.
-         * @returns {*} Either the old value, or the new (default) value.
+         * @returns {*} Either the existing, unchanged value, or the new (default) value.
          */
         deepDefault: function(collection, propertyPath, defaultValue){
             var value = _.deepGet(collection, propertyPath);
