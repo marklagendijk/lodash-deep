@@ -106,7 +106,7 @@
                     currentObject[property] = value;
                 }
                 else if(!_.isObject(currentObject[property])){
-                    currentObject[property] = isNaN(properties[index + 1]) ? {}: [];
+                    currentObject[property] = isArrayKey(properties[index + 1]) ? [] : {};
                 }
                 currentObject = currentObject[property];
             });
@@ -466,6 +466,17 @@
                 return _.deepGet(item, propertyPath);
             });
         };
+    }
+
+    /**
+     * Checks whether key is a valid array key
+     * @param key
+     * @returns {boolean}
+     */
+    function isArrayKey(key){
+        var array = [];
+        array[key] = null;
+        return array.length > 0;
     }
 
     return mixins;
