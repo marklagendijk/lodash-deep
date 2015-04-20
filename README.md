@@ -60,6 +60,7 @@ The following mixins are included in `lodash-deep`:
 - [_.deepSortBy](#_deeppluckstylecollection-propertypath)
 - [_.deepFindKey](#_deeppluckstylecollection-propertypath)
 - [_.deepFindLastKey](#_deeppluckstylecollection-propertypath)
+- [_.deepParseStringPropertyPath](#_deepparsestringpropertypathpropertypath)
 
 ### propertyPath
 Nearly all methods of this library have the `propertyPath` parameter. This parameter defines the location of the nested value(s) and can be either a single `string` or an `array`.
@@ -512,6 +513,15 @@ _.max(collection, function(item){
     return _.deepGet(item, 'level1.level2.level3.value');
 });
 ```
+
+### _.deepParseStringPropertyPath(propertyPath)
+The internal function which converts an propertyPath string into an array
+
+#### propertyPath
+Type: `string|Array`
+
+#### returns
+Type: 'Array'
 
 ### Function name change
 In version 1.2.0 function names were simplified. Backward compatibility with the old names remains in place.
