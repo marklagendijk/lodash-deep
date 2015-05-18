@@ -4,7 +4,7 @@
 [![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Sauce Test Status][sauce-image]][sauce-url] [![Dependency Status][depstat-image]][depstat-url]
 
 ## NOTE: Lodash now natively provides most of the functionality of this module
-In [Lodash 3.7](https://github.com/lodash/lodash/wiki/Changelog#v370) the [_.get](https://lodash.com/docs#get) and [_.set](https://lodash.com/docs#set] methods where added. These methods are the same as the _.deepGet and _.deepSet from this module. Besides this `path` support was added to all relevant Lodash methods. 
+In [Lodash 3.7](https://github.com/lodash/lodash/wiki/Changelog#v370) the [_.get](https://lodash.com/docs#get) and [_.set](https://lodash.com/docs#set) methods where added. These methods are the same as the _.deepGet and _.deepSet from this module. Besides this `path` support was added to all relevant Lodash methods. 
 
 ## Compatibility
 lodash-deep is currently compatible with:
