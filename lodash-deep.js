@@ -390,7 +390,14 @@
          * @param {string|Array} propertyPath - The propertyPath.
          * @returns {string|undefined}
          */
-        deepFindLastKey: createDeepPluckStyleCallback(_.findLastKey)
+        deepFindLastKey: createDeepPluckStyleCallback(_.findLastKey),
+        /**
+         * @function
+         * Convert a property path into an array. This is used internally as well.
+         * @param {string|Array} propertyPath - The propertyPath.
+         * @returns {string}
+         */
+        deepParseStringPropertyPath: parseStringPropertyPath
     };
 
     // Support pre 1.2.0 function names
