@@ -35,7 +35,7 @@
             if(_.isArray(object)){
                 return _.map(object, deepMapValuesIteratee);
             }
-            else if(_.isObject(object) && !_.isDate(object) && !_.isRegExp(object)){
+            else if(_.isObject(object) && !_.isDate(object) && !_.isRegExp(object) && !_.isFunction(object)){
                 return _.extend({}, object, _.mapValues(object, deepMapValuesIteratee));
             }
             else{
