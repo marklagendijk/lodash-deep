@@ -3,8 +3,18 @@
 
 [![Bower version][bower-image]][bower-url] [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Sauce Test Status][sauce-image]][sauce-url] [![Dependency Status][depstat-image]][depstat-url]
 
-## NOTE: Lodash now natively provides most of the functionality of this module
-In [Lodash 3.7](https://github.com/lodash/lodash/wiki/Changelog#v370) the [_.get](https://lodash.com/docs#get) and [_.set](https://lodash.com/docs#set) methods where added. These methods are the same as the _.deepGet and _.deepSet from this module. Besides this `path` support was added to all relevant Lodash methods. 
+## Version 2.x
+In 2.0 most of the methods of this module where removed, because Lodash now supports their functionality natively. E.g.:
+
+``` javascript
+_.deepGet(object, 'father.name');
+// ->
+_.get(object, 'father.name');
+
+_.deepPluck(array, 'father.name');
+// ->
+_.map(array, 'father.name');
+```
 
 ## Compatibility
 lodash-deep is currently compatible with:
@@ -25,19 +35,6 @@ lodash-deep is currently compatible with:
     var _ = require("lodash");
     _.mixin(require("lodash-deep"));
     ```
-
-## Version 2.x
-In 2.0 most of the methods of this module where removed, because Lodash now supports their functionality natively. E.g.:
-
-``` javascript
-_.deepGet(object, 'father.name');
-// ->
-_.get(object, 'father.name');
-
-_.deepPluck(array, 'father.name');
-// ->
-_.map(array, 'father.name');
-```
 
 ## Docs
 The following mixins are included in `lodash-deep`:
