@@ -1,13 +1,13 @@
 {
   "name": "lodash-deep",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "description": "Lodash mixins for (deep) object accessing / manipulation.",
   "main": "lodash-deep.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "lodash": ">=2.4.1"
+    "lodash": ">=3.7.0"
   },
   "devDependencies": {
     "gulp": "~3.8.8",
