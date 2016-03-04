@@ -1,13 +1,14 @@
 var gulp = require("gulp");
 var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
-var karma = require("karma").server;
+var KarmaServer = require("karma").Server;
 var jasmine = require("gulp-jasmine");
 
 gulp.task("test-browser", ["minify"], function(callback){
-    karma.start({
-        configFile: process.cwd() + '/config/karma.conf.js'
-    }, callback);
+    var karmaServer = new KarmaServer({
+        configFile: __dirname + '/config/karma.conf.js'
+    });
+    karmaServer.start(callback);
 });
 
 gulp.task("test-node", ["minify"], function(){
