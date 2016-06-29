@@ -38,9 +38,9 @@ lodash-deep is currently compatible with:
 
 ## Docs
 The following mixins are included in `lodash-deep`:
-- [_.deepMapValues](#_deepmapvaluesobject-propertypath)
+- [_.deepMapValues](#_deepmapvaluesobject-iteratee)
 
-### _.deepMapValues(object, propertyPath)
+### _.deepMapValues(object, iteratee)
 Maps all values in an object tree and returns a new object with the same structure as the original.
 
 #### object
@@ -48,7 +48,7 @@ Type: `Object`
 
 The root object of the object tree.
 
-#### callback
+#### iteratee
 Type: `Function`
 
 The function to be called per iteration on any non-object value in the tree.
