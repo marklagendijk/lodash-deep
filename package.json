@@ -1,23 +1,23 @@
 {
   "name": "lodash-deep",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "description": "Lodash mixins for (deep) object accessing / manipulation.",
   "main": "lodash-deep.js",
   "directories": {
     "test": "test"
   },
   "dependencies": {
-    "lodash": ">=2.4.1"
+    "lodash": ">=3.7.0"
   },
   "devDependencies": {
     "gulp": "~3.8.8",
-    "gulp-jasmine": "^1.0.1",
+    "gulp-jasmine": "^2.3.0",
     "gulp-rename": "~1.2.0",
     "gulp-uglify": "~1.0.1",
-    "karma": "~0.12.23",
-    "karma-jasmine": "~0.1.5",
-    "karma-chrome-launcher": "~0.1.4",
-    "karma-sauce-launcher": "^0.2.10"
+    "karma": "0.13.21",
+    "karma-jasmine": "0.3.7",
+    "karma-chrome-launcher": "0.2.2",
+    "karma-sauce-launcher":  "0.3.1"
   },
   "engines": {
     "node": ">=0.8.0",

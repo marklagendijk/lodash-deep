@@ -13,7 +13,7 @@ module.exports = function(karmaConfig){
 
         // list of files / patterns to load in the browser
         files: [
-            'bower_components/lodash/lodash.min.js',
+            'bower_components/lodash/dist/lodash.min.js',
             'lodash-deep.min.js',
             'test/**/*.js'
         ],
@@ -77,20 +77,6 @@ module.exports = function(karmaConfig){
                 platform: 'OS X 10.9',
                 version: '7'
             },
-            /*
-            'SL_IE_7': {
-                base: 'SauceLabs',
-                browserName: 'internet explorer',
-                platform: 'Windows XP',
-                version: '7'
-            },
-            'SL_IE_8': {
-                base: 'SauceLabs',
-                browserName: 'internet explorer',
-                platform: 'Windows XP',
-                version: '8'
-            },
-            */
             'SL_IE_9': {
                 base: 'SauceLabs',
                 browserName: 'internet explorer',
