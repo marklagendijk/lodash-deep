@@ -31,7 +31,6 @@
          * @returns {Object}
          */
         deepMapValues: function(object, callback, propertyPath){
-            propertyPath = propertyPath || '';
             if(_.isArray(object)){
                 return _.map(object, deepMapValuesIteratee);
             }
@@ -43,7 +42,7 @@
             }
 
             function deepMapValuesIteratee(value, key){
-                var valuePath = propertyPath ? propertyPath + '.' + key: key;
+                var valuePath = _.isUndefined(propertyPath) ? key + '' : propertyPath + '.' + key;
                 return _.deepMapValues(value, callback, valuePath);
             }
         }
