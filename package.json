@@ -1,6 +1,6 @@
 {
   "name": "lodash-deep",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Lodash mixins for (deep) object accessing / manipulation.",
   "main": "lodash-deep.js",
   "directories": {
@@ -17,7 +17,7 @@
     "karma": "0.13.21",
     "karma-jasmine": "0.3.7",
     "karma-chrome-launcher": "0.2.2",
-    "karma-sauce-launcher":  "0.3.1"
+    "karma-sauce-launcher": "0.3.1"
   },
   "engines": {
     "node": ">=0.8.0",
