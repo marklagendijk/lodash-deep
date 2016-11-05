@@ -76,7 +76,7 @@ var object = {
 };
 
 _.deepMapValues(object, function(value, path){
-    return path + ' is ' + value)
+    return (path + ' is ' + value)
 });
 
 /** ->
