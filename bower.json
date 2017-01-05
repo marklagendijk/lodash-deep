@@ -24,6 +24,6 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": ">=3.7.0"
+    "lodash": "^4.13.1"
   }
 }
