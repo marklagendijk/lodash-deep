@@ -1,5 +1,5 @@
 {
-  "name": "lodash-deep",
+  "name": "@s4rb/lodash-deep",
   "version": "2.0.1",
   "description": "Lodash mixins for (deep) object accessing / manipulation.",
   "main": "lodash-deep.js",
