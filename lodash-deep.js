@@ -18,9 +18,10 @@
         // Browser globals (root is window)
         root._.mixin(factory(root._));
     }
-}(this, function(_, undefined){
+}(this, function (_){
     'use strict';
 
+    /* begin src/lodash-deep.js */
     var mixins = /** @lends _ */ {
         /**
          * Maps all values in an object tree and returns a new object with the same structure as the original.
@@ -52,4 +53,6 @@
     _.mixin(mixins);
 
     return mixins;
+    /* end src/lodash-deep.js */
+
 }));

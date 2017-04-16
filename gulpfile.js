@@ -3,6 +3,7 @@ var uglify = require("gulp-uglify");
 var rename = require("gulp-rename");
 var KarmaServer = require("karma").Server;
 var jasmine = require("gulp-jasmine");
+var fs = require('fs');
 
 gulp.task("test-browser", ["minify"], function(callback){
     var karmaServer = new KarmaServer({
@@ -16,11 +17,32 @@ gulp.task("test-node", ["minify"], function(){
         .pipe(jasmine());
 });
 
+gulp.task("concat", function (done) {
+  var factoryBody = (
+      "/* begin src/lodash-deep.js */\n" +
+      fs.readFileSync("src/lodash-deep.js", "utf8") + "\n" +
+      "/* end src/lodash-deep.js */"
+  )
+  .split("\n")
+  .map(function (line) {
+      return line.trim() ? "    " + line : line;
+  })
+  .join("\n");
+
+  var replaceFlag = "/*@factory@*/";
+  var umd = fs.readFileSync("src/umd.js", "utf8");
+  var umdCompat = fs.readFileSync("src/umd.factory.js", "utf8");
+
+  fs.writeFileSync("lodash-deep.js", umd.replace(replaceFlag, factoryBody));
+  fs.writeFileSync("factory.js", umdCompat.replace(replaceFlag, factoryBody));
+  done();
+});
+
 gulp.task("test", ["test-browser", "test-node"]);
 
-gulp.task("minify", function(){
-    return gulp.src("lodash-deep.js")
+gulp.task("minify", ["concat"], function(){
+    return gulp.src(["lodash-deep.js", "factory.js"])
         .pipe(uglify())
-        .pipe(rename("lodash-deep.min.js"))
+        .pipe(rename({ extname: ".min.js" }))
         .pipe(gulp.dest("./"));
 });
